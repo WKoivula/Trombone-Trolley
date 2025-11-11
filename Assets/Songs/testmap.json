@@ -1,0 +1,27 @@
+{
+  "sliders": [
+    {
+      "id": 1,
+      "nodes": [
+        { "time": 1.0, "lane": 1.0 },
+        { "time": 1.5, "lane": 3.0 },
+        { "time": 2.0, "lane": 2.0 }
+      ]
+    },
+    {
+      "id": 2,
+      "nodes": [
+        { "time": 3.0, "lane": 2.0 },
+        { "time": 3.3, "lane": 2.5 },
+        { "time": 4.0, "lane": 4.0 }
+      ]
+    },
+    {
+      "id": 3,
+      "nodes": [
+        { "time": 5.0, "lane": 4.0 },
+        { "time": 5.5, "lane": 1.0 }
+      ]
+    }
+  ]
+}
