@@ -259,6 +259,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1757183402}
     m_Modifications:
+    - target: {fileID: 2356102313321579194, guid: 780f6605115575f43bbbaa8f8ee2def0, type: 3}
+      propertyPath: m_RotationAtRest.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356102313321579194, guid: 780f6605115575f43bbbaa8f8ee2def0, type: 3}
+      propertyPath: m_RotationAtRest.z
+      value: 10.0853
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356102313321579194, guid: 780f6605115575f43bbbaa8f8ee2def0, type: 3}
+      propertyPath: m_TranslationAtRest.x
+      value: -0.244
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356102313321579194, guid: 780f6605115575f43bbbaa8f8ee2def0, type: 3}
+      propertyPath: m_TranslationAtRest.y
+      value: -0.504
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356102313321579194, guid: 780f6605115575f43bbbaa8f8ee2def0, type: 3}
+      propertyPath: m_TranslationAtRest.z
+      value: 0.516
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356102313321579194, guid: 780f6605115575f43bbbaa8f8ee2def0, type: 3}
+      propertyPath: m_RotationOffsets.Array.data[0].x
+      value: 89.97203
+      objectReference: {fileID: 0}
     - target: {fileID: 6265139522333508480, guid: 780f6605115575f43bbbaa8f8ee2def0, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.6
@@ -318,6 +342,10 @@ PrefabInstance:
     - target: {fileID: 6753692582569793850, guid: 780f6605115575f43bbbaa8f8ee2def0, type: 3}
       propertyPath: m_Name
       value: TrombonePrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068204756702859490, guid: 780f6605115575f43bbbaa8f8ee2def0, type: 3}
+      propertyPath: m_Angle
+      value: -74.11534
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
