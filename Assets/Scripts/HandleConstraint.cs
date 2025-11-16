@@ -41,10 +41,8 @@ public class HandleConstraint : MonoBehaviour
     {
         Transform hand = args.interactorObject.transform;
         Transform handle = args.interactableObject.transform;
-        Vector3 handleLocalPos = handle.localPosition;
-        Vector3 value = Vector3.Project(movementDistance, movementDistance);
-        
-        handleLocalPos.x = Mathf.Clamp(value.x,startPoint.localPosition.x,endPoint.localPosition.x);
+        Vector3 handleLocalPos = handle.localPosition;        
+        handleLocalPos.x = Mathf.Clamp(hand.position.x,startPoint.localPosition.x,endPoint.localPosition.x);
 
     }
     
