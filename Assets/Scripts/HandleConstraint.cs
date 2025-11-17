@@ -7,6 +7,7 @@ using System;
 
 public class HandleConstraint : MonoBehaviour
 {
+    public bool debugOn;
     public Transform startPoint;
     public Transform endPoint;
     public Transform parentObject; // Add reference to parent
@@ -25,50 +26,42 @@ public class HandleConstraint : MonoBehaviour
         restLocalPosition = transform.localPosition;
         handleTransform = transform;
         restRotation = transform.localRotation;
-        movementDistance = endPoint.position - startPoint.position;
-        //Debug.DrawLine(Vector3.zero, new Vector3(0, 5, 0), Color.red);
+        Debug.DrawRay(startPoint.position,endPoint.position-startPoint.position,Color.red,60f);
 
     }
     /*  */
 
-    private float onGrab(Transform grabber)
+    private void onGrab(Transform grabber)
     {
         currentGrabber = grabber;
-        handleLocalStartPos = handleTransform.localPosition;
-        Vector3 handLocalSpace = handleTransform.parent.InverseTransformPoint(grabber.position);
-        return handLocalSpace.x;
+
     }
     private void exitGrab()
     {
         currentGrabber = null;
  
     }
+    //move logic to update
+    void Update()
+    {
+            if(debugOn) Debug.DrawRay(startPoint.position,endPoint.position-startPoint.position,Color.red,60f);
+        while ( currentgrabber != null)
+        {
+            handleLocalStartPos
+        }
 
+    }
     public void OnGrabEntered(SelectEnterEventArgs args)
     {
+        onGrab(args.interactorObject.transform);
+        Vector3 handleLocalPos = transform.localPosition;
+        Vector3 handLocalSpace = transform.InverseTransformPoint(args.interactorObject.transform.parent.position);
+        
+        handleLocalPos.x = Mathf.Lerp(handLocalSpace.x,startPoint.position.x,endPoint.position.x);
+        handleLocalPos.y = (endPoint.position.y-startPoint.position.y);
         Debug.Log(args.interactableObject.transform.parent); // null
-        Debug.Log(args.interactorObject.transform.parent); //right hand
-        Debug.Log(transform); //handle om bara transform
-        
-        /* handleLocalStartPos = handleTransform.localPosition;
-        Transform hand = args.interactableObject.transform;
-        Vector3 handLocalSpace = handleTransform.parent.InverseTransformPoint(hand.position);
-        handleTransform = transform;
-        Vector3 handlepos = handleTransform.localPosition;
-        handlepos.x = handLocalSpace.x; */
-
-       /*  Transform hand = args.interactorObject.transform;
-        float input = onGrab(hand);
-        handleTransform = args.interactableObject.transform;
-        float handle_local_x = handleTransform.transform.localPosition.x;
-        handle_local_x = input; */
-        
-        //Vector3 handloc = args.interactorObject.transform.position;
-        //Transform handle = args.interactableObject.transform;
-
-       // Vector3 handleLocalPos = handle.localPosition;
-        //handleLocalPos.x = Mathf.Clamp(hand.position.x, startPoint.localPosition.x, endPoint.localPosition.x);
-
+        Debug.Log(args.interactorObject.transform.parent); // hand
+        Debug.Log(transform); //handle om bara transform 
     }
 
     public void OnGrabExited(SelectExitEventArgs args)
