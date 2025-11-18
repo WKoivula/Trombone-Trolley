@@ -1,11 +1,16 @@
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class SongHandler : MonoBehaviour
 {
     public TextAsset songFile;
+    public GameObject sliderPrefab;
+
+    [Header("Beatmap parameters")]
+    public float delayToStartSlider = 3.0f;
+    public float noteArrivalSpeed = 3.0f;
 
     [System.Serializable]
     public class SliderNode
@@ -28,11 +33,13 @@ public class SongHandler : MonoBehaviour
     public class Beatmap
     {
         public List<Slider> sliders = new List<Slider>();
+        public float length;
+        public float arrivalSpeed;
     }
 
     Beatmap beatmap;
     private bool isPlaying = false;
-    private float time = 0.0f;
+    private float songStartTime = 0.0f;
 
     private PlayerInput playerInput;
     private InputAction spaceAction;
@@ -40,6 +47,7 @@ public class SongHandler : MonoBehaviour
     private void Awake()
     {
         beatmap = JsonUtility.FromJson<Beatmap>(songFile.text);
+        beatmap.arrivalSpeed = noteArrivalSpeed;
         playerInput = GetComponent<PlayerInput>();
         spaceAction = playerInput.actions["Jump"];
     }
@@ -58,11 +66,30 @@ public class SongHandler : MonoBehaviour
             if (spaceAction.WasPressedThisFrame())
             {
                 isPlaying = true;
+                songStartTime = Time.time;
+                StartCoroutine(PlayBeatmap(beatmap, songStartTime));
             }
-        } else
-        {
-            time += Time.deltaTime;
-            Debug.Log(time + " seconds have passed");
         }
+    }
+
+    IEnumerator PlayBeatmap(Beatmap beatmap, float songStartTime)
+    {
+        for (int i = 0; i < beatmap.sliders.Count; i++)
+        {
+            float spawnTime = beatmap.sliders[i].startTime - beatmap.arrivalSpeed - delayToStartSlider;
+
+            while (Time.time - songStartTime < spawnTime)
+                yield return null;
+
+            SpawnSlider(beatmap.sliders[i], songStartTime);
+        }
+    }
+
+    void SpawnSlider(Slider slider, float songStartTime)
+    {
+        GameObject sliderObj = Instantiate(sliderPrefab);
+        SliderController controller = sliderObj.GetComponent<SliderController>();
+
+        controller.Initialize(slider, transform.position, delayToStartSlider, songStartTime, Time.time, beatmap.arrivalSpeed);
     }
 }
