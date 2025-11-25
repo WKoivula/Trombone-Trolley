@@ -196,17 +196,7 @@ MonoBehaviour:
   startPoint: {fileID: 5323122985299938079}
   endPoint: {fileID: 449615626939452066}
   parentObject: {fileID: 6009376562064043519}
-  isDebug: 0
-  FiringValue:
-    m_Name: Firing Value
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e967af71-e656-4936-adf0-6e133be6e526
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  hand: {fileID: 0}
+  OneGrabTrans: {fileID: 0}
 --- !u!4 &6009376562064043519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6048770967118889175, guid: 4090d5e9945699c4f9a0f9ba9adfbe7a, type: 3}

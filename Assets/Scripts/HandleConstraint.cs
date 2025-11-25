@@ -1,106 +1,114 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.InputSystem;
-using Unity.Mathematics;
-using System;
-using System.Numerics;
-using Vector3 = UnityEngine.Vector3;
+using Oculus.Interaction; // Required for OneGrabTranslateTransformer
 
-
-public class HandleConstraint : MonoBehaviour
+public class HandleConstraint : OneGrabTranslateTransformer,ITransformer
 {
+    [Header("Custom Constraint Settings")]
     public bool debugOn;
-    public BoxCollider interactionZone;
     public Transform startPoint;
     public Transform endPoint;
-    public Transform parentObject; // Add reference to parent
+    public Transform parentObject;
+    private Vector3 restLocalPos;
+    private float computedMinX;
+    private float computedMaxX;
 
-    private Vector3 restLocalPosition;
-    private quaternion restRotation;
-    private Vector3 movementDistance;
-    public bool isDebug = false;
-    public InputAction FiringValue;
-
-    public Transform hand; 
-    Transform currentGrabber;
-    Transform handleTransform;
-    private Vector3 handleTransform_local;
-    Vector3 handleLocalStartPos;
-    private bool isGrabbed;
-    void Start()
-    {
-        restLocalPosition = transform.localPosition;
-        handleTransform = transform;
-        handleTransform_local = transform.localPosition;
-        restRotation = transform.localRotation;
-        Debug.DrawRay(startPoint.position, endPoint.position - startPoint.position, Color.red, 60f);
-        if (interactionZone == null)
+    // We use Start to calculate and inject the constraints
+    // explicitly because we cannot override the base logic.
+    /*     protected virtual void Start()
         {
-            Debug.Log("No box collider was added, did u forget?");
-        }
-    }
-    /*  */
+            restLocalPos = transform.localPosition;
+            if (startPoint == null || endPoint == null)
+            {
+                Debug.LogError("StartPoint and EndPoint must be assigned.");
+                return;
+            }
 
-    private void onGrab(Transform grabber)
+
+
+            // 2. Calculate Local Positions
+            // We need to know where the start and end points are relative to the parent
+            float startX = -transform.InverseTransformPoint(startPoint.position).x*50f;
+            float endX = -transform.InverseTransformPoint(endPoint.position).x*50f;
+
+            // Determine which is min and max
+            computedMinX = Mathf.Min(startX, endX);
+            computedMaxX = Mathf.Max(startX, endX);
+
+
+            // 3. Create the Constraints Object
+            // Note: OneGrabTranslateConstraints is a nested class inside OneGrabTranslateTransformer
+            var newConstraints = new OneGrabTranslateConstraints();
+
+            // --- Configure X Axis (Movement) ---
+            newConstraints.MinX = new FloatConstraint();
+            newConstraints.MaxX = new FloatConstraint();
+
+            newConstraints.MinX.Constrain = true;
+            newConstraints.MinX.Value = -0.002f;
+
+            newConstraints.MaxX.Constrain = true;
+            newConstraints.MaxX.Value = 0.0002f;
+
+            // --- Configure Y and Z Axis (Locked) ---
+            // We want to lock Y and Z to the object's current local position
+            float lockedY = transform.localPosition.y;
+            float lockedZ = transform.localPosition.z;
+
+            newConstraints.MinY = new FloatConstraint();
+            newConstraints.MaxY = new FloatConstraint();
+            newConstraints.MinZ = new FloatConstraint();
+            newConstraints.MaxZ = new FloatConstraint();
+
+            newConstraints.MinY.Constrain = true;
+            newConstraints.MinY.Value = lockedY;
+            newConstraints.MaxY.Constrain = true;
+            newConstraints.MaxY.Value = lockedY;
+
+            newConstraints.MinZ.Constrain = true;
+            newConstraints.MinZ.Value = lockedZ;
+            newConstraints.MaxZ.Constrain = true;
+            newConstraints.MaxZ.Value = lockedZ;
+
+            newConstraints.ConstraintsAreRelative = true;
+
+            this.InjectOptionalConstraints(newConstraints);
+        } */
+
+    void Awake()
     {
-        currentGrabber = grabber;
-
-    }
-    private void exitGrab()
-    {
-        currentGrabber = null;
+                    restLocalPos = transform.localPosition;
 
     }
 
+    private bool isTransforming = false;
 
-
-    //move logic to update
-    void Update()
+    public new void BeginTransform()
     {
-        if (debugOn) Debug.DrawRay(startPoint.position, endPoint.position - startPoint.position, Color.red, 60f);
-        if (currentGrabber != null)
+        isTransforming = true;
+        base.BeginTransform();
+    }
+
+    public new void EndTransform()
+    {
+        isTransforming = false;
+        base.EndTransform();
+        transform.localPosition = restLocalPos;
+    }
+
+    private void Update()
+    {
+        if (debugOn && startPoint != null && endPoint != null)
         {
-
-
-
+            Debug.DrawLine(startPoint.position, endPoint.position, Color.green);
         }
-//* Time.deltaTime* 0.01f
-        float t = Mathf.Sin(-hand.localPosition.z * 0.01f );
-        Vector3 dir = (endPoint.position - startPoint.position).normalized;
-        transform.localPosition = new Vector3(t, 0, 0);
-
-    }
-
-
-
+        if (isTransforming)
+        {
+        //float x_pos = Mathf.Clamp(transform.localPosition.x,-2,2);
+        //transform.localPosition = new Vector3(x_pos,transform.localPosition.y,transform.localPosition.z);
+            
+        }
+    } 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public void OnGrabEntered(SelectEnterEventArgs args)
-    {
-        onGrab(args.interactorObject.transform);
-
-    }
-
-    public void OnGrabExited(SelectExitEventArgs args)
-    {
-        exitGrab();
-        // Return to rest position in local space
-        transform.localPosition = restLocalPosition;
-        transform.localRotation = restRotation;
-    }
-
-
-
+    
 }
