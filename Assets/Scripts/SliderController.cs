@@ -24,15 +24,18 @@ public class SliderController : MonoBehaviour
     private Vector3 hitPosition = Vector3.zero;
     private float delay;
     private SongHandler.Slider slider;
+    private float heightPerLane = 1.0f;
 
     private int currentNodeIndex;
     public void Initialize(SongHandler.Slider slider, Vector3 startPos, float delay,
-                            float songStartTime, float sliderStartTime, float arrivalSpeed)
+                            float songStartTime, float sliderStartTime, float arrivalSpeed,
+                            float heightPerLane)
     {
         this.sliderStartTime = sliderStartTime;
         this.songStartTime = songStartTime;
         this.delay = delay;
         this.slider = slider;
+        this.heightPerLane = heightPerLane;
 
         alive = new bool[slider.nodes.Count];
 
@@ -74,7 +77,7 @@ public class SliderController : MonoBehaviour
 
     private Vector3 LaneToPos(float lane)
     {
-        return new Vector3(0, lane * 1.5f, 0);
+        return new Vector3(0, lane * heightPerLane, 0);
     }
 
     private Vector3[] cachedPositions;
@@ -92,7 +95,7 @@ public class SliderController : MonoBehaviour
                 SliderNode nextNode = slider.nodes[currentNodeIndex + 1];
                 float t = Mathf.InverseLerp(currentNode.time, nextNode.time, Time.time - songStartTime);
                 Vector3 lanePos = Vector3.Lerp(LaneToPos(currentNode.lane), LaneToPos(nextNode.lane), t);
-                PlayerHandler.instance.SetCurrentNote(lanePos.y);
+                PlayerHandler.instance.SetCurrentNote(lanePos.y / (12 * heightPerLane));
             }
         }
 

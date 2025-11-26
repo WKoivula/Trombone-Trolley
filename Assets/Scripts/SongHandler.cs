@@ -11,6 +11,9 @@ public class SongHandler : MonoBehaviour
     [Header("Beatmap parameters")]
     public float delayToStartSlider = 3.0f;
     public float noteArrivalSpeed = 3.0f;
+    public float heightPerLane = 0.2f;
+
+    private LineRenderer mapLineRenderer;
 
     [System.Serializable]
     public class SliderNode
@@ -50,12 +53,16 @@ public class SongHandler : MonoBehaviour
         beatmap.arrivalSpeed = noteArrivalSpeed;
         playerInput = GetComponent<PlayerInput>();
         spaceAction = playerInput.actions["Jump"];
+        mapLineRenderer = GetComponentInChildren<LineRenderer>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Vector3[] points = new Vector3[2];
+        points[0] = transform.position;
+        points[1] = transform.position + new Vector3(0, heightPerLane * 12, 0);
+        mapLineRenderer.SetPositions(points);
     }
 
     // Update is called once per frame
@@ -70,6 +77,11 @@ public class SongHandler : MonoBehaviour
                 StartCoroutine(PlayBeatmap(beatmap, songStartTime));
             }
         }
+    }
+
+    public Vector3 LaneToPos(float lane)
+    {
+        return new Vector3(0, lane * heightPerLane, 0);
     }
 
     IEnumerator PlayBeatmap(Beatmap beatmap, float songStartTime)
@@ -90,6 +102,6 @@ public class SongHandler : MonoBehaviour
         GameObject sliderObj = Instantiate(sliderPrefab);
         SliderController controller = sliderObj.GetComponent<SliderController>();
 
-        controller.Initialize(slider, transform.position, delayToStartSlider, songStartTime, Time.time, beatmap.arrivalSpeed);
+        controller.Initialize(slider, transform.position, delayToStartSlider, songStartTime, Time.time, beatmap.arrivalSpeed, heightPerLane);
     }
 }
