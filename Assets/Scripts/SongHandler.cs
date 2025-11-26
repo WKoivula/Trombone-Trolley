@@ -60,8 +60,8 @@ public class SongHandler : MonoBehaviour
     void Start()
     {
         Vector3[] points = new Vector3[2];
-        points[0] = transform.position;
-        points[1] = transform.position + new Vector3(0, heightPerLane * 12, 0);
+        points[0] = Vector3.zero;
+        points[1] = new Vector3(0, heightPerLane * 12, 0);
         mapLineRenderer.SetPositions(points);
     }
 
