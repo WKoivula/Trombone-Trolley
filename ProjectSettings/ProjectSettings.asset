@@ -146,7 +146,7 @@ PlayerSettings:
   bundleVersion: 0.1.0
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  - {fileID: 11400000, guid: 215ee0ac9fc99dd4db5762602a22d002, type: 2}
+  - {fileID: 0}
   - {fileID: 5679564776091674474, guid: e1d6364adec86c348bcf9da03f67d8f0, type: 2}
   - {fileID: -5797537130015094859, guid: 0c79ec35b02be3a4ca53137728fec34c, type: 2}
   metroInputSource: 0
@@ -184,7 +184,7 @@ PlayerSettings:
   AndroidTargetSdkVersion: 32
   AndroidPreferredInstallLocation: 0
   aotOptions: 
-  stripEngineCode: 1
+  stripEngineCode: 0
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
   ForceInternetPermission: 0
