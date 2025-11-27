@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        if (Keyboard.current.spaceKey.isPressed)
+        if (Keyboard.current.wKey.isPressed)
         {
             transform.Translate(Vector3.left * Time.deltaTime * playerSpeed, Space.World);
         }

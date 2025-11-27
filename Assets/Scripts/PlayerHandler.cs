@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerHandler : MonoBehaviour
 {
     public static PlayerHandler instance;
+    
     public float hitWindow = 0.1f;
     [Range(0.0f, 1.0f)]
     public float currentCursorPos = 0.0f;

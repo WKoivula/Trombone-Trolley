@@ -440,6 +440,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6155833160218856338, guid: b54ab3e3da8be304c95aef698a0f4da6, type: 3}
+      propertyPath: noteArrivalSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6155833160218856338, guid: b54ab3e3da8be304c95aef698a0f4da6, type: 3}
+      propertyPath: delayToStartSlider
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6548331199682920842, guid: b54ab3e3da8be304c95aef698a0f4da6, type: 3}
       propertyPath: m_Name
       value: BeatmapSpawn
