@@ -342,8 +342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63327cc7e355b546a34fe4b9b85bd88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MicInput
-  sensitivity: -30
-  steps: 0
+  sensitivity: -1000
+  slider: 0
+  octave: 0
 --- !u!65 &1303018213
 BoxCollider:
   m_ObjectHideFlags: 0
