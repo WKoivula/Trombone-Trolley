@@ -12,6 +12,7 @@ public class SongHandler : MonoBehaviour
     public float delayToStartSlider = 3.0f;
     public float noteArrivalSpeed = 3.0f;
     public float heightPerLane = 0.2f;
+    public float delayToStartMap = 0.4f;
 
     private LineRenderer mapLineRenderer;
     private AudioSource songAudioSource;
@@ -28,6 +29,7 @@ public class SongHandler : MonoBehaviour
     {
         public int id;
         public List<SliderNode> nodes = new List<SliderNode>();
+        public LineRenderer line;
 
         public float startTime => nodes.Count > 0 ? nodes[0].time : 0f;
         public float endTime => nodes.Count > 0 ? nodes[^1].time : 0f;
@@ -61,7 +63,10 @@ public class SongHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Vector3[] linePositions = new Vector3[2];
+        linePositions[0] = Vector3.zero;
+        linePositions[1] = new Vector3(0, 13 * heightPerLane, 0); ;
+        mapLineRenderer.SetPositions(linePositions);
     }
 
     // Update is called once per frame
@@ -72,20 +77,16 @@ public class SongHandler : MonoBehaviour
             if (spaceAction.WasPressedThisFrame())
             {
                 isPlaying = true;
-                songStartTime = AudioSettings.dspTime;
                 songAudioSource.PlayScheduled(songStartTime);
                 StartCoroutine(PlayBeatmap(beatmap, songStartTime));
             }
         }
     }
 
-    public Vector3 LaneToPos(float lane)
-    {
-        return new Vector3(0, lane * heightPerLane, 0);
-    }
-
     IEnumerator PlayBeatmap(Beatmap beatmap, double songStartTime)
     {
+        yield return new WaitForSeconds(delayToStartMap);
+        songStartTime = AudioSettings.dspTime;
         for (int i = 0; i < beatmap.sliders.Count; i++)
         {
             float spawnTime = beatmap.sliders[i].startTime - beatmap.arrivalSpeed - delayToStartSlider;
