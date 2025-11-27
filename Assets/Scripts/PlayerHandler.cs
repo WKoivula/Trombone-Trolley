@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerHandler : MonoBehaviour
 {
     public static PlayerHandler instance;
-    
     public float hitWindow = 0.1f;
     [Range(0.0f, 1.0f)]
     public float currentCursorPos = 0.0f;
@@ -13,6 +12,8 @@ public class PlayerHandler : MonoBehaviour
 
     private float laneValue;
     private bool noteShouldBeHit = false;
+
+    private LineRenderer currentSliderLine;
 
     private void Awake()
     {
@@ -30,6 +31,20 @@ public class PlayerHandler : MonoBehaviour
         if (noteShouldBeHit && currentCursorPos <= laneValue + hitWindow / 2 && currentCursorPos >= laneValue - hitWindow / 2)
         {
             Debug.Log("Perfect hit!");
+            if (currentSliderLine != null)
+            {
+                Debug.Log("Slider not null");
+                currentSliderLine.startColor = Color.blue;
+                currentSliderLine.endColor = Color.blue;
+            }
+        }
+        else
+        {
+            if (currentSliderLine != null)
+            {
+                currentSliderLine.startColor = Color.white;
+                currentSliderLine.endColor = Color.white;
+            }
         }
     }
 
@@ -42,6 +57,13 @@ public class PlayerHandler : MonoBehaviour
     // Sets current note, should be normalized between 0 and 1
     public void SetCurrentNote(float noteValue)
     {
+        Debug.Log(noteValue);
         laneValue = noteValue;
+    }
+
+    public void SetCurrentLine(LineRenderer line)
+    {
+        Debug.Log("Set line");
+        currentSliderLine = line;
     }
 }
