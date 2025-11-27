@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 //using jp.keijiro.lasp;
 public class MicInput : MonoBehaviour
 {
+    //public float PlayerHandler.instance.currentCursorPos();
     AudioClip microphoneInput;
     Lasp.AudioLevelTracker audioLevelTracker;
     bool microphoneInitialized;
@@ -86,7 +87,7 @@ public class MicInput : MonoBehaviour
         }
         
 
-        float steps = -10 + 12 * slider + 12 * octave;
+        float steps = -10 + 12 * PlayerHandler.instance.currentCursorPos + 12 * octave;
         if (steps < 0)
         {
             audioSource.pitch = Mathf.Pow(ratio, -steps);
