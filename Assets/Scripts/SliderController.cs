@@ -87,6 +87,9 @@ public class SliderController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (slider == null || nodeObjects.Count == 0)
+            return;
+
         if (cachedPositions == null || cachedPositions.Length != nodeObjects.Count)
             cachedPositions = new Vector3[nodeObjects.Count];
 
@@ -105,7 +108,8 @@ public class SliderController : MonoBehaviour
 
         for (int i = 0; i < nodeObjects.Count; i++)
             {
-                Vector3 startPos = startPositions[i];
+                // la till + new Vector3(0, heightOffset, 0);
+                Vector3 startPos = startPositions[i] + new Vector3(0, heightOffset, 0);
                 Vector3 hitPosWithOffset = hitPosition + new Vector3(0, startPos.y, 0);
 
                 double t = InverseLerpUnclamped(sliderStartTime - delay, songStartTime + targetTimes[i], AudioSettings.dspTime);
