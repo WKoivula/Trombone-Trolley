@@ -9,7 +9,9 @@ public class MicInput : MonoBehaviour
     public float sensitivity = 0f;
     AudioSource audioSource;
     float ratio = 415.3f / 440f;
-    [Range(-10f, 10f)] public float steps = 0f;
+    //[Range(-10f, 10f)] public float steps = 0f;
+    [Range(0f, 1f)] public float slider = 0f;
+    [Range(-2, 2)] public int octave = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //private void Awake()
     //{
@@ -52,7 +54,8 @@ public class MicInput : MonoBehaviour
         //    }
         //}
         //float level = Mathf.Sqrt(Mathf.Sqrt(levelMax));
-
+        float steps = -10 + 12 * slider + 12 * octave;
+        print(steps);
         if (steps < 0)
         {
             audioSource.pitch = Mathf.Pow(ratio, -steps);
