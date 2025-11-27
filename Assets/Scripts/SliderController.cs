@@ -22,6 +22,7 @@ public class SliderController : MonoBehaviour
     private Vector3 origin;
 
     private int currentNodeIndex;
+    
     public void Initialize(Slider slider, Vector3 startPos, float delay,
                             double songStartTime, double sliderStartTime, float arrivalSpeed,
                             float heightPerLane)
@@ -49,6 +50,7 @@ public class SliderController : MonoBehaviour
             Debug.Log("Current song time: " + currSongTime);
             Debug.Log("Time to node: " + timeToNode);
             n.transform.Translate(LaneToPos(slider.nodes[i].lane) + new Vector3(delay * arrivalSpeed + (float)timeToNode * arrivalSpeed, 0, 0));
+            n.transform.position = new Vector3(-n.transform.position.x,n.transform.position.y,n.transform.position.z);
             startPositions.Add(n.transform.position);
             targetTimes.Add(slider.nodes[i].time);
             alive[i] = true;
@@ -108,8 +110,8 @@ public class SliderController : MonoBehaviour
 
         for (int i = 0; i < nodeObjects.Count; i++)
             {
-                // la till + new Vector3(0, heightOffset, 0);
-                Vector3 startPos = startPositions[i] + new Vector3(0, heightOffset, 0);
+                
+                Vector3 startPos = startPositions[i] + new Vector3(0,0, 0);
                 Vector3 hitPosWithOffset = hitPosition + new Vector3(0, startPos.y, 0);
 
                 double t = InverseLerpUnclamped(sliderStartTime - delay, songStartTime + targetTimes[i], AudioSettings.dspTime);
