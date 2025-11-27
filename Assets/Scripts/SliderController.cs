@@ -1,13 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using static SongHandler;
-using static UnityEditor.PlayerSettings;
 
 public class SliderController : MonoBehaviour
 {
@@ -19,15 +13,17 @@ public class SliderController : MonoBehaviour
 
     private List<float> targetTimes;
     private bool[] alive;
-    private float sliderStartTime;
-    private float songStartTime;
+    private double sliderStartTime;
+    private double songStartTime;
     private Vector3 hitPosition = Vector3.zero;
     private float delay;
-    private SongHandler.Slider slider;
+    private Slider slider;
+    private float heightPerLane = 1.0f;
 
     private int currentNodeIndex;
-    public void Initialize(SongHandler.Slider slider, Vector3 startPos, float delay,
-                            float songStartTime, float sliderStartTime, float arrivalSpeed)
+    public void Initialize(Slider slider, Vector3 startPos, float delay,
+                            double songStartTime, double sliderStartTime, float arrivalSpeed,
+                            float heightPerLane)
     {
         this.sliderStartTime = sliderStartTime;
         this.songStartTime = songStartTime;
@@ -42,32 +38,36 @@ public class SliderController : MonoBehaviour
         {
             GameObject n = Instantiate(nodePrefab, transform);
             nodeObjects.Add(n);
-            float currSongTime = Time.time - songStartTime;
-            float timeToNode = slider.nodes[i].time - currSongTime;
+            double currSongTime = AudioSettings.dspTime - songStartTime;
+            double timeToNode = slider.nodes[i].time - currSongTime;
             Debug.Log("Current song time: " + currSongTime);
             Debug.Log("Time to node: " + timeToNode);
-            n.transform.Translate(LaneToPos(slider.nodes[i].lane) + new Vector3(delay * arrivalSpeed + timeToNode * arrivalSpeed, 0, 0));
+            n.transform.Translate(LaneToPos(slider.nodes[i].lane) + new Vector3(delay * arrivalSpeed + (float)timeToNode * arrivalSpeed, 0, 0));
             startPositions.Add(n.transform.position);
             targetTimes.Add(slider.nodes[i].time);
             alive[i] = true;
             Debug.Log(startPositions.Count);
         }
 
-        StartCoroutine(SetCurrentNode(slider.nodes, Time.time - songStartTime));
+        StartCoroutine(SetCurrentNode(slider.nodes, AudioSettings.dspTime - songStartTime));
 
         line.positionCount = nodeObjects.Count;
     }
 
-    IEnumerator SetCurrentNode(List<SliderNode> nodes, float startTime)
+    IEnumerator SetCurrentNode(List<SliderNode> nodes, double startTime)
     {
-        float songTime = startTime;
+        double songTime = startTime;
         for (int i = 0; i < targetTimes.Count; i++)
         {
-            float timeToNode = targetTimes[i] - songTime;
-            yield return new WaitForSeconds(timeToNode);
+            double timeToNode = targetTimes[i] - songTime;
+            double timeToWaitUntil = AudioSettings.dspTime + timeToNode;
+            while (AudioSettings.dspTime < timeToWaitUntil)
+            {
+                yield return null;
+            }
             PlayerHandler.instance.SetNoteShouldBeHit(true);
             currentNodeIndex = i;
-            songTime = Time.time - songStartTime;
+            songTime = AudioSettings.dspTime - songStartTime;
         }
         PlayerHandler.instance.SetNoteShouldBeHit(false);
     }
@@ -84,13 +84,13 @@ public class SliderController : MonoBehaviour
         if (cachedPositions == null || cachedPositions.Length != nodeObjects.Count)
             cachedPositions = new Vector3[nodeObjects.Count];
 
-        if (Time.time >= (songStartTime + slider.startTime) && Time.time <= (songStartTime + slider.endTime))
+        if (AudioSettings.dspTime >= (songStartTime + slider.startTime) && AudioSettings.dspTime <= (songStartTime + slider.endTime))
         {
             if (currentNodeIndex != slider.nodes.Count - 1)
             {
                 SliderNode currentNode = slider.nodes[currentNodeIndex];
                 SliderNode nextNode = slider.nodes[currentNodeIndex + 1];
-                float t = Mathf.InverseLerp(currentNode.time, nextNode.time, Time.time - songStartTime);
+                float t = Mathf.InverseLerp(currentNode.time, nextNode.time, (float)(AudioSettings.dspTime - songStartTime));
                 Vector3 lanePos = Vector3.Lerp(LaneToPos(currentNode.lane), LaneToPos(nextNode.lane), t);
                 PlayerHandler.instance.SetCurrentNote(lanePos.y);
             }
@@ -101,14 +101,14 @@ public class SliderController : MonoBehaviour
                 Vector3 startPos = startPositions[i];
                 Vector3 hitPosWithOffset = hitPosition + new Vector3(0, startPos.y, 0);
 
-                float t = InverseLerpUnclamped(sliderStartTime - delay, songStartTime + targetTimes[i], Time.time);
-                nodeObjects[i].transform.position = Vector3.LerpUnclamped(startPos, hitPosWithOffset, t);
+                double t = InverseLerpUnclamped(sliderStartTime - delay, songStartTime + targetTimes[i], AudioSettings.dspTime);
+                nodeObjects[i].transform.position = Vector3.LerpUnclamped(startPos, hitPosWithOffset, (float)t);
 
                 cachedPositions[i] = nodeObjects[i].transform.localPosition;
             }
         line.SetPositions(cachedPositions);
     }
-    public static float InverseLerpUnclamped(float a, float b, float value)
+    public static double InverseLerpUnclamped(double a, double b, double value)
     {
         return (value - a) / (b - a);
     }
