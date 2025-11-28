@@ -11,12 +11,37 @@ public class MicInput : MonoBehaviour
     Lasp.AudioLevelTracker audioLevelTracker;
     bool microphoneInitialized;
     public float sensitivity = 0f;
+    public float volume = 0.1f;
     AudioSource audioSource;
     Lasp.SpectrumAnalyzer spectrumAnalyzer;
     float ratio = 415.3f / 440f;
     //[Range(-10f, 10f)] public float steps = 0f;
     [Range(0f, 1f)] public float slider = 0f;
     [Range(-2, 2)] public int octave = 0;
+
+    public static MicInput instance;
+
+    public bool isBlowing = false;
+
+    // Public safe accessor for current output volume so other scripts
+    // don't need to reference the AudioSource field directly.
+    public float CurrentVolume
+    {
+        get { return audioSource != null ? audioLevelTracker.inputLevel : 0f; }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this);
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //private void Awake()
     //{
@@ -83,11 +108,12 @@ public class MicInput : MonoBehaviour
             {
                 octave = 1;
             }
-            print("Max index: " + maxIndex + ", Max Value: " + maxValue);
+            // print("Max index: " + maxIndex + ", Max Value: " + maxValue);
         }
         
 
         float steps = -10 + 12 * PlayerHandler.instance.currentCursorPos + 12 * octave;
+        print("Steps: " + steps);
         if (steps < 0)
         {
             audioSource.pitch = Mathf.Pow(ratio, -steps);
@@ -102,11 +128,11 @@ public class MicInput : MonoBehaviour
         }
         
         float level = audioLevelTracker.inputLevel;
-        if (level > sensitivity)
+        if (level > sensitivity && CurrentVolume > -70f)
         {
             if (audioSource != null)
             {
-                audioSource.volume = 1f;
+                audioSource.volume = volume;
             }
         }
         else
