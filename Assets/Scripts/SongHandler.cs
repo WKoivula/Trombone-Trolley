@@ -105,4 +105,5 @@ public class SongHandler : MonoBehaviour
 
         controller.Initialize(slider, transform.position, delayToStartSlider, songStartTime, AudioSettings.dspTime, beatmap.arrivalSpeed, heightPerLane);
     }
+    
 }

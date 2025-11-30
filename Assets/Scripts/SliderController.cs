@@ -16,6 +16,7 @@ public class SliderController : MonoBehaviour
     private double sliderStartTime;
     private double songStartTime;
     private Vector3 hitPosition = Vector3.zero;
+    private List<Vector3> prevPositions = new List<Vector3>();
     private float delay;
     private Slider slider;
     private float heightPerLane = 1.0f;
@@ -52,6 +53,7 @@ public class SliderController : MonoBehaviour
             n.transform.Translate(LaneToPos(slider.nodes[i].lane) + new Vector3(delay * arrivalSpeed + (float)timeToNode * arrivalSpeed, 0, 0));
             n.transform.position = new Vector3(-n.transform.position.x,n.transform.position.y,n.transform.position.z);
             startPositions.Add(n.transform.position);
+            prevPositions.Add(n.transform.position);
             targetTimes.Add(slider.nodes[i].time);
             alive[i] = true;
             Debug.Log(startPositions.Count);
@@ -95,34 +97,81 @@ public class SliderController : MonoBehaviour
         if (cachedPositions == null || cachedPositions.Length != nodeObjects.Count)
             cachedPositions = new Vector3[nodeObjects.Count];
 
-        if (AudioSettings.dspTime >= (songStartTime + slider.startTime) && AudioSettings.dspTime <= (songStartTime + slider.endTime))
+        if (AudioSettings.dspTime >= (songStartTime + slider.startTime) &&
+            AudioSettings.dspTime <= (songStartTime + slider.endTime))
         {
             if (currentNodeIndex != slider.nodes.Count - 1)
             {
                 SliderNode currentNode = slider.nodes[currentNodeIndex];
                 SliderNode nextNode = slider.nodes[currentNodeIndex + 1];
-                float t = Mathf.InverseLerp(currentNode.time, nextNode.time, (float)(AudioSettings.dspTime - songStartTime));
-                Vector3 lanePos = Vector3.Lerp(LaneToPos(currentNode.lane), LaneToPos(nextNode.lane), t);
+
+                float tLine = Mathf.InverseLerp(
+                    currentNode.time,
+                    nextNode.time,
+                    (float)(AudioSettings.dspTime - songStartTime)
+                );
+
+                Vector3 lanePos = Vector3.Lerp(LaneToPos(currentNode.lane),
+                                            LaneToPos(nextNode.lane),
+                                            tLine);
                 PlayerHandler.instance.SetCurrentNote(lanePos.y / (12 * heightPerLane));
                 PlayerHandler.instance.SetCurrentLine(slider.line);
             }
         }
 
         for (int i = 0; i < nodeObjects.Count; i++)
+        {
+            GameObject note = nodeObjects[i];
+            if (note == null)
+                continue;
+
+            Vector3 lastPos = prevPositions[i];
+            Vector3 startPos = startPositions[i];
+            Vector3 hitPosWithOffset = hitPosition + new Vector3(0, startPos.y, 0);
+
+            double tDouble = InverseLerpUnclamped(
+                sliderStartTime - delay,
+                songStartTime + targetTimes[i],
+                AudioSettings.dspTime
+            );
+            float t = (float)tDouble;
+
+            float tClamped = Mathf.Clamp01(t);
+            Vector3 lineWorldPos = Vector3.LerpUnclamped(startPos, hitPosWithOffset, tClamped);
+            Vector3 lineLocalPos = transform.InverseTransformPoint(lineWorldPos);
+            cachedPositions[i] = lineLocalPos;
+
+            if (alive[i])
             {
-                
-                Vector3 startPos = startPositions[i] + new Vector3(0,0, 0);
-                Vector3 hitPosWithOffset = hitPosition + new Vector3(0, startPos.y, 0);
+                note.transform.position = lineWorldPos;
 
-                double t = InverseLerpUnclamped(sliderStartTime - delay, songStartTime + targetTimes[i], AudioSettings.dspTime);
-                nodeObjects[i].transform.position = Vector3.LerpUnclamped(startPos, hitPosWithOffset, (float)t);
+                if (t >= 1f)
+                {
+                    Vector3 velocity = note.transform.position - lastPos;
+                    float brakeFactor = 3f;
+                    Vector3 stopPos = note.transform.position + velocity * brakeFactor;
 
-                cachedPositions[i] = nodeObjects[i].transform.localPosition;
+                    var glow = note.GetComponent<NoteGlowOnHit>();
+                    if (glow != null)
+                        glow.PlayGlowAndDespawn(stopPos);
+                    else
+                        Destroy(note);
+
+                    alive[i] = false;
+                }
             }
+            // -----------------------------------------------------------------------
+
+            prevPositions[i] = note.transform.position;
+        }
+
         line.SetPositions(cachedPositions);
     }
+
+    
     public static double InverseLerpUnclamped(double a, double b, double value)
     {
         return (value - a) / (b - a);
     }
+
 }
