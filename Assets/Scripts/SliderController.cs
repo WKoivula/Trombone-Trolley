@@ -8,6 +8,12 @@ public class SliderController : MonoBehaviour
     public LineRenderer line;
     public GameObject nodePrefab;
 
+    [Header("Pitch → Color")]
+    public Color lowPitchColor = Color.blue;
+    public Color highPitchColor = Color.red;
+    public float minLaneValue = 0f;
+    public float maxLaneValue = 12f;
+
     private List<GameObject> nodeObjects = new List<GameObject>();
     private List<Vector3> startPositions = new List<Vector3>();
 
@@ -23,6 +29,9 @@ public class SliderController : MonoBehaviour
     private Vector3 origin;
 
     private int currentNodeIndex;
+    private Material lineMatInstance;
+    private List<Color> noteColors = new List<Color>();
+
     
     public void Initialize(Slider slider, Vector3 startPos, float delay,
                             double songStartTime, double sliderStartTime, float arrivalSpeed,
@@ -46,6 +55,15 @@ public class SliderController : MonoBehaviour
         {
             GameObject n = Instantiate(nodePrefab, transform);
             nodeObjects.Add(n);
+            if (i == 0 && line != null)
+            {
+                var noteRenderer = n.GetComponentInChildren<Renderer>();
+                if (noteRenderer != null)
+                {
+                    lineMatInstance = new Material(noteRenderer.sharedMaterial);
+                    line.material = lineMatInstance;
+                }
+            }
             double currSongTime = AudioSettings.dspTime - songStartTime;
             double timeToNode = slider.nodes[i].time - currSongTime;
             Debug.Log("Current song time: " + currSongTime);
@@ -111,13 +129,18 @@ public class SliderController : MonoBehaviour
                     (float)(AudioSettings.dspTime - songStartTime)
                 );
 
-                Vector3 lanePos = Vector3.Lerp(LaneToPos(currentNode.lane),
-                                            LaneToPos(nextNode.lane),
-                                            tLine);
+                Vector3 lanePos = Vector3.Lerp(
+                    LaneToPos(currentNode.lane),
+                    LaneToPos(nextNode.lane),
+                    tLine
+                );
+
                 PlayerHandler.instance.SetCurrentNote(lanePos.y / (12 * heightPerLane));
                 PlayerHandler.instance.SetCurrentLine(slider.line);
             }
         }
+
+        bool anyAlive = false; // <--- track if any note in this slider is still active
 
         for (int i = 0; i < nodeObjects.Count; i++)
         {
@@ -143,6 +166,8 @@ public class SliderController : MonoBehaviour
 
             if (alive[i])
             {
+                anyAlive = true; // still at least one live note in this slider
+
                 note.transform.position = lineWorldPos;
 
                 if (t >= 1f)
@@ -160,13 +185,26 @@ public class SliderController : MonoBehaviour
                     alive[i] = false;
                 }
             }
-            // -----------------------------------------------------------------------
 
             prevPositions[i] = note.transform.position;
         }
 
-        line.SetPositions(cachedPositions);
+        // If there are still live notes, keep drawing the line.
+        // If ALL notes in this slider have hit, kill the line.
+        if (anyAlive)
+        {
+            line.positionCount = cachedPositions.Length;
+            line.SetPositions(cachedPositions);
+        }
+        else
+        {
+            line.positionCount = 0;
+            // Optional: also disable or destroy the line GameObject if you want it truly gone:
+            // line.enabled = false;
+            // Destroy(line.gameObject);
+        }
     }
+
 
     
     public static double InverseLerpUnclamped(double a, double b, double value)

@@ -15822,6 +15822,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeatmapSpawn
       objectReference: {fileID: 0}
+    - target: {fileID: 7108369310448620338, guid: b54ab3e3da8be304c95aef698a0f4da6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f41b0b148ef2036418de821b80b8823b, type: 2}
     - target: {fileID: 8854193746574693526, guid: b54ab3e3da8be304c95aef698a0f4da6, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

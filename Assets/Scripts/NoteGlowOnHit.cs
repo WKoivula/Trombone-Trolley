@@ -5,6 +5,7 @@ public class NoteGlowOnHit : MonoBehaviour
 {
     [Header("Shader property settings")]
     public string rimPowerProperty = "_RimPower";
+    public string rimColorProperty = "_RimColor";
     public float maxRimPower = 100f;
     public float glowDuration = 0.2f;
 
@@ -24,6 +25,15 @@ public class NoteGlowOnHit : MonoBehaviour
             if (matInstance.HasProperty(rimPowerProperty))
                 matInstance.SetFloat(rimPowerProperty, 0f);
         }
+    }
+
+    public void SetRimColor(Color color)
+    {
+        if (matInstance == null)
+            return;
+
+        if (matInstance.HasProperty(rimColorProperty))
+            matInstance.SetColor(rimColorProperty, color);
     }
 
     public void PlayGlowAndDespawn(Vector3 stopPosition)
