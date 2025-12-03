@@ -142,8 +142,8 @@ MonoBehaviour:
   _maxInteractors: -1
   _maxSelectingInteractors: -1
   _data: {fileID: 0}
-  _pointableElement: {fileID: 0}
-  _rigidbody: {fileID: 0}
+  _pointableElement: {fileID: 2810291824705112283}
+  _rigidbody: {fileID: 5708486182154787821}
   _physicsGrabbable: {fileID: 0}
   _resetGrabOnGrabsUpdated: 1
   _scoringModifier:
@@ -337,8 +337,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.01290396, y: 0.0037152239, z: 0.0009011928}
-  m_Center: {x: 0.0019860764, y: 0.0034335118, z: 0.0046814596}
+  m_Size: {x: 0.0076300977, y: 0.0037152239, z: 0.0009011927}
+  m_Center: {x: -0.0006508668, y: 0.0014999999, z: 0.0046814596}
 --- !u!54 &5708486182154787821
 Rigidbody:
   m_ObjectHideFlags: 0
