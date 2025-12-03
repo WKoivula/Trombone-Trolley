@@ -10026,7 +10026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1839596624506126497, guid: f3787490e12cb7e4fb7cde1d6a4afe71, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.064
+      value: -0.138
       objectReference: {fileID: 0}
     - target: {fileID: 1839596624506126497, guid: f3787490e12cb7e4fb7cde1d6a4afe71, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10034,7 +10034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1839596624506126497, guid: f3787490e12cb7e4fb7cde1d6a4afe71, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.619
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 1839596624506126497, guid: f3787490e12cb7e4fb7cde1d6a4afe71, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10123,6 +10123,10 @@ PrefabInstance:
     - target: {fileID: 6601034385651526798, guid: f3787490e12cb7e4fb7cde1d6a4afe71, type: 3}
       propertyPath: m_HDR
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7492645357810045727, guid: f3787490e12cb7e4fb7cde1d6a4afe71, type: 3}
+      propertyPath: _constraints.MaxX.Value
+      value: 0.003
       objectReference: {fileID: 0}
     - target: {fileID: 7868638609085934750, guid: f3787490e12cb7e4fb7cde1d6a4afe71, type: 3}
       propertyPath: m_Enabled
