@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1433230847507290257}
   - component: {fileID: 4822282481245390384}
   - component: {fileID: 8108906435222816928}
+  - component: {fileID: 4897490937996239847}
   m_Layer: 0
   m_Name: Note
   m_TagString: Untagged
@@ -111,3 +112,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4897490937996239847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3866297882738306599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d341ec91cc854804d945e0a5e0c9a817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoteGlowOnHit
+  rimPowerProperty: _RimPower
+  maxRimPower: 100
+  glowDuration: 0.7

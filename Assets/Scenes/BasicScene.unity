@@ -1021,13 +1021,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: LowPolyMinecart
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c46823d917231934bb762c40374228ac, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: c46823d917231934bb762c40374228ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1278171390}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c46823d917231934bb762c40374228ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1108777500}
   m_SourcePrefab: {fileID: 100100000, guid: c46823d917231934bb762c40374228ac, type: 3}
 --- !u!4 &101332554 stripped
 Transform:
@@ -4766,7 +4773,7 @@ GameObject:
   - component: {fileID: 587707159}
   m_Layer: 0
   m_Name: Cart
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8977,6 +8984,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094304167}
   m_Mesh: {fileID: -5495902117074765545, guid: 180d8196018059a49989ce97516033c4, type: 3}
+--- !u!1 &1108777499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c46823d917231934bb762c40374228ac, type: 3}
+  m_PrefabInstance: {fileID: 85232469}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1108777500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108777499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33659d8808af34e3391b4fa5123617a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CartMovement
+  pushDistance: 2
+  moveSpeed: 5
+  beatmapContainer: {fileID: 0}
 --- !u!1001 &1131383382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15900,6 +15927,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeatmapSpawn
       objectReference: {fileID: 0}
+    - target: {fileID: 7108369310448620338, guid: b54ab3e3da8be304c95aef698a0f4da6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f41b0b148ef2036418de821b80b8823b, type: 2}
     - target: {fileID: 8854193746574693526, guid: b54ab3e3da8be304c95aef698a0f4da6, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

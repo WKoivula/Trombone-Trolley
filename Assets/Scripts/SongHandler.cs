@@ -60,16 +60,19 @@ public class SongHandler : MonoBehaviour
         songAudioSource = GetComponent<AudioSource>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Vector3[] linePositions = new Vector3[2];
         linePositions[0] = Vector3.zero;
         linePositions[1] = new Vector3(0, 13 * heightPerLane, 0); ;
         mapLineRenderer.SetPositions(linePositions);
+        
+        if (CartMovement.instance != null)
+        {
+            CartMovement.instance.ParentToBeatmapContainer(transform, true);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isPlaying)
@@ -102,7 +105,13 @@ public class SongHandler : MonoBehaviour
     {
         GameObject sliderObj = Instantiate(sliderPrefab);
         SliderController controller = sliderObj.GetComponent<SliderController>();
+        
+        if (CartMovement.instance != null)
+        {
+            CartMovement.instance.ParentToBeatmapContainer(sliderObj.transform, true);
+        }
 
         controller.Initialize(slider, transform.position, delayToStartSlider, songStartTime, AudioSettings.dspTime, beatmap.arrivalSpeed, heightPerLane);
     }
+    
 }
