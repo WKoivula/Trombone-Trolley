@@ -42,8 +42,8 @@ public class SliderController : MonoBehaviour
         this.delay = delay;
         this.slider = slider;
         this.heightPerLane = heightPerLane;
-        origin = startPos;
-        hitPosition = startPos;
+        origin = transform.InverseTransformPoint(startPos);
+        hitPosition = transform.InverseTransformPoint(startPos);
 
         slider.line = this.line;
 
@@ -66,15 +66,12 @@ public class SliderController : MonoBehaviour
             }
             double currSongTime = AudioSettings.dspTime - songStartTime;
             double timeToNode = slider.nodes[i].time - currSongTime;
-            Debug.Log("Current song time: " + currSongTime);
-            Debug.Log("Time to node: " + timeToNode);
             n.transform.Translate(LaneToPos(slider.nodes[i].lane) + new Vector3(delay * arrivalSpeed + (float)timeToNode * arrivalSpeed, 0, 0));
             n.transform.position = new Vector3(-n.transform.position.x,n.transform.position.y,n.transform.position.z);
-            startPositions.Add(n.transform.position);
-            prevPositions.Add(n.transform.position);
+            startPositions.Add(transform.InverseTransformPoint(n.transform.position));
+            prevPositions.Add(transform.InverseTransformPoint(n.transform.position));
             targetTimes.Add(slider.nodes[i].time);
             alive[i] = true;
-            Debug.Log(startPositions.Count);
         }
 
         StartCoroutine(SetCurrentNode(slider.nodes, AudioSettings.dspTime - songStartTime));
@@ -93,11 +90,20 @@ public class SliderController : MonoBehaviour
             {
                 yield return null;
             }
+            
             PlayerHandler.instance.SetNoteShouldBeHit(true);
+            PlayerHandler.instance.SetCurrentNoteObject(nodeObjects[i]);
             currentNodeIndex = i;
+            
+            float hitWindowDuration = PlayerHandler.instance != null ? PlayerHandler.instance.hitWindow * 2f : 0.2f;
+            yield return new WaitForSeconds(hitWindowDuration);
+            
+            PlayerHandler.instance.SetNoteShouldBeHit(false);
+            
             songTime = AudioSettings.dspTime - songStartTime;
         }
         PlayerHandler.instance.SetNoteShouldBeHit(false);
+        PlayerHandler.instance.SetCurrentNoteObject(null);
     }
 
     private Vector3 LaneToPos(float lane)
@@ -140,7 +146,7 @@ public class SliderController : MonoBehaviour
             }
         }
 
-        bool anyAlive = false; // <--- track if any note in this slider is still active
+        bool anyAlive = false; 
 
         for (int i = 0; i < nodeObjects.Count; i++)
         {
@@ -149,8 +155,8 @@ public class SliderController : MonoBehaviour
                 continue;
 
             Vector3 lastPos = prevPositions[i];
-            Vector3 startPos = startPositions[i];
-            Vector3 hitPosWithOffset = hitPosition + new Vector3(0, startPos.y, 0);
+            Vector3 startPosLocal = startPositions[i];
+            Vector3 hitPosWithOffsetLocal = hitPosition + new Vector3(0, startPosLocal.y, 0);
 
             double tDouble = InverseLerpUnclamped(
                 sliderStartTime - delay,
@@ -159,38 +165,41 @@ public class SliderController : MonoBehaviour
             );
             float t = (float)tDouble;
 
-            float tClamped = Mathf.Clamp01(t);
-            Vector3 lineWorldPos = Vector3.LerpUnclamped(startPos, hitPosWithOffset, tClamped);
-            Vector3 lineLocalPos = transform.InverseTransformPoint(lineWorldPos);
+            Vector3 lineLocalPos = Vector3.LerpUnclamped(startPosLocal, hitPosWithOffsetLocal, t);
             cachedPositions[i] = lineLocalPos;
 
             if (alive[i])
             {
-                anyAlive = true; // still at least one live note in this slider
+                anyAlive = true;
 
-                note.transform.position = lineWorldPos;
+                note.transform.localPosition = lineLocalPos;
 
                 if (t >= 1f)
                 {
-                    Vector3 velocity = note.transform.position - lastPos;
-                    float brakeFactor = 3f;
-                    Vector3 stopPos = note.transform.position + velocity * brakeFactor;
-
+                    bool wasHit = (i == currentNodeIndex && PlayerHandler.instance != null && PlayerHandler.instance.WasCurrentNoteHit());
+                    
                     var glow = note.GetComponent<NoteGlowOnHit>();
-                    if (glow != null)
-                        glow.PlayGlowAndDespawn(stopPos);
-                    else
+                    
+                    if (wasHit && glow != null)
+                    {
+                        Vector3 velocity = note.transform.localPosition - lastPos;
+                        float brakeFactor = 3f;
+                        Vector3 stopPosLocal = note.transform.localPosition + velocity * brakeFactor;
+                        Vector3 stopPosWorld = transform.TransformPoint(stopPosLocal);
+                        glow.PlayGlowAndDespawn(stopPosWorld);
+                        alive[i] = false;
+                    }
+                    else if (t >= 1.5f)
+                    {
                         Destroy(note);
-
-                    alive[i] = false;
+                        alive[i] = false;
+                    }
                 }
             }
 
-            prevPositions[i] = note.transform.position;
+            prevPositions[i] = note.transform.localPosition;
         }
 
-        // If there are still live notes, keep drawing the line.
-        // If ALL notes in this slider have hit, kill the line.
         if (anyAlive)
         {
             line.positionCount = cachedPositions.Length;
@@ -199,9 +208,6 @@ public class SliderController : MonoBehaviour
         else
         {
             line.positionCount = 0;
-            // Optional: also disable or destroy the line GameObject if you want it truly gone:
-            // line.enabled = false;
-            // Destroy(line.gameObject);
         }
     }
 

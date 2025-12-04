@@ -41,6 +41,11 @@ public class NoteGlowOnHit : MonoBehaviour
         if (!isPlaying && matInstance != null)
             StartCoroutine(GlowRoutine(stopPosition));
     }
+    
+    public bool IsPlaying()
+    {
+        return isPlaying;
+    }
 
     private IEnumerator GlowRoutine(Vector3 stopPos)
     {
