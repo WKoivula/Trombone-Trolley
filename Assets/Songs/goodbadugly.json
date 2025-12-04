@@ -2,125 +2,235 @@
   "sliders": [
     {
       "id": 1,
+      "octave": 1,
       "nodes": [
         {
           "time": 4.755,
-          "lane": 5.0
+          "lane": 7.0
         },
         {
           "time": 4.881,
-          "lane": 8.0
+          "lane": 12.0
         },
         {
           "time": 5.007,
-          "lane": 5.0
+          "lane": 7.0
         },
         {
           "time": 5.133,
-          "lane": 8.0
+          "lane": 12.0
         },
         {
           "time": 5.259,
-          "lane": 5.0
+          "lane": 7.0
         },
         {
           "time": 5.941,
-          "lane": 5.0
+          "lane": 7.0
         },
         {
           "time": 6.287,
-          "lane": 4.5
+          "lane": 6.5
         }
       ]
     },
     {
       "id": 2,
+      "octave": 1,
       "nodes": [
         {
           "time": 6.428,
-          "lane": 10.0
+          "lane": 3.0
         },
         {
           "time": 6.932,
-          "lane": 10.0
+          "lane": 3.0
         }
       ]
     },
     {
       "id": 3,
+      "octave": 1,
       "nodes": [
         {
           "time": 7.010,
-          "lane": 11.0
+          "lane": 5.0
         },
         {
           "time": 7.535,
-          "lane": 11.0
+          "lane": 5.0
         }
       ]
     },
     {
       "id": 4,
+      "octave": 1,
       "nodes": [
         {
           "time": 7.729,
-          "lane": 8.0
+          "lane": 0.0
         },
         {
           "time": 8.916,
-          "lane": 8.0
+          "lane": 0.0
         }
       ]
     },
     {
       "id": 5,
+      "octave": 1,
       "nodes": [
         {
-          "time": 10.0,
-          "lane": 8.0
+          "time": 9.523,
+          "lane": 7.0
         },
         {
-          "time": 13.0,
-          "lane": 3.0
+          "time": 9.636,
+          "lane": 12.0
+        },
+        {
+          "time": 9.735,
+          "lane": 7.0
+        },
+        {
+          "time": 9.818,
+          "lane": 12.0
+        },
+        {
+          "time": 9.910,
+          "lane": 7.0
+        },
+        {
+          "time": 11.045,
+          "lane": 7.0
+        },
+        {
+          "time": 11.154,
+          "lane": 6.5
         }
       ]
     },
     {
       "id": 6,
+      "octave": 1,
       "nodes": [
         {
-          "time": 14,
+          "time": 11.267,
           "lane": 3.0
         },
         {
-          "time": 16,
-          "lane": 6.0
+          "time": 11.753,
+          "lane": 3.0
         }
       ]
     },
     {
       "id": 7,
+      "octave": 1,
       "nodes": [
         {
-          "time": 17,
-          "lane": 7.0
+          "time": 11.895,
+          "lane": 5.0
         },
         {
-          "time": 18,
-          "lane": 7.0
+          "time": 12.391,
+          "lane": 5.0
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "octave": 1,
+      "nodes": [
+        {
+          "time": 12.474,
+          "lane": 10.0
+        },
+        {
+          "time": 13.904,
+          "lane": 10.0
         }
       ]
     },
     {
       "id": 8,
+      "octave": 1,
       "nodes": [
         {
-          "time": 19.0,
-          "lane": 9.0
+          "time": 14.209,
+          "lane": 7.0
         },
         {
-          "time": 20.0,
-          "lane": 9.0
+          "time": 14.347,
+          "lane": 12.0
+        },
+        {
+          "time": 14.436,
+          "lane": 7.0
+        },
+        {
+          "time": 14.527,
+          "lane": 12.0
+        },
+        {
+          "time": 15.687,
+          "lane": 12.0
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "octave": 1,
+      "nodes": [
+        {
+          "time": 16.000,
+          "lane": 3.0
+        },
+        {
+          "time": 16.516,
+          "lane": 3.0
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "octave": 1,
+      "nodes": [
+        {
+          "time": 16.635,
+          "lane": 2.0
+        },
+        {
+          "time": 16.920,
+          "lane": 2.0
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "octave": 1,
+      "nodes": [
+        {
+          "time": 16.969,
+          "lane": 0.0
+        },
+        {
+          "time": 17.199,
+          "lane": 0.0
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "octave": 0,
+      "nodes": [
+        {
+          "time": 17.255,
+          "lane": 10.0
+        },
+        {
+          "time": 18.579,
+          "lane": 10.0
         }
       ]
     }

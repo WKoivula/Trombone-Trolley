@@ -28,6 +28,7 @@ public class SongHandler : MonoBehaviour
     public class Slider
     {
         public int id;
+        public int octave;
         public List<SliderNode> nodes = new List<SliderNode>();
         public LineRenderer line;
 
@@ -65,7 +66,7 @@ public class SongHandler : MonoBehaviour
     {
         Vector3[] linePositions = new Vector3[2];
         linePositions[0] = Vector3.zero;
-        linePositions[1] = new Vector3(0, 13 * heightPerLane, 0); ;
+        linePositions[1] = new Vector3(0, 12 * heightPerLane, 0); ;
         mapLineRenderer.SetPositions(linePositions);
     }
 

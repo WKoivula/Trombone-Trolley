@@ -35,7 +35,7 @@ public class SliderController : MonoBehaviour
         origin = startPos;
         hitPosition = startPos;
 
-        slider.line = this.line;
+        slider.line = line;
 
         alive = new bool[slider.nodes.Count];
 
@@ -103,22 +103,23 @@ public class SliderController : MonoBehaviour
                 SliderNode nextNode = slider.nodes[currentNodeIndex + 1];
                 float t = Mathf.InverseLerp(currentNode.time, nextNode.time, (float)(AudioSettings.dspTime - songStartTime));
                 Vector3 lanePos = Vector3.Lerp(LaneToPos(currentNode.lane), LaneToPos(nextNode.lane), t);
+                MicInput.instance.octave = slider.octave;
                 PlayerHandler.instance.SetCurrentNote(lanePos.y / (12 * heightPerLane));
                 PlayerHandler.instance.SetCurrentLine(slider.line);
             }
         }
 
         for (int i = 0; i < nodeObjects.Count; i++)
-            {
-                
-                Vector3 startPos = startPositions[i] + new Vector3(0,0, 0);
-                Vector3 hitPosWithOffset = hitPosition + new Vector3(0, startPos.y, 0);
+        {
 
-                double t = InverseLerpUnclamped(sliderStartTime - delay, songStartTime + targetTimes[i], AudioSettings.dspTime);
-                nodeObjects[i].transform.position = Vector3.LerpUnclamped(startPos, hitPosWithOffset, (float)t);
+            Vector3 startPos = startPositions[i];
+            Vector3 hitPosWithOffset = hitPosition + new Vector3(0, startPos.y, 0);
 
-                cachedPositions[i] = nodeObjects[i].transform.localPosition;
-            }
+            double t = InverseLerpUnclamped(sliderStartTime - delay, songStartTime + targetTimes[i], AudioSettings.dspTime);
+            nodeObjects[i].transform.position = Vector3.LerpUnclamped(startPos, hitPosWithOffset, (float)t);
+
+            cachedPositions[i] = nodeObjects[i].transform.localPosition;
+        }
         line.SetPositions(cachedPositions);
     }
     public static double InverseLerpUnclamped(double a, double b, double value)

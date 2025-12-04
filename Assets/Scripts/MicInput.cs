@@ -17,7 +17,9 @@ public class MicInput : MonoBehaviour
     float ratio = 415.3f / 440f;
     //[Range(-10f, 10f)] public float steps = 0f;
     [Range(0f, 1f)] public float slider = 0f;
-    [Range(-2, 2)] public int octave = 0;
+
+    [Range(-2, 2)] public float octaveBase = 0;
+    public int octave = 0;
 
     public static MicInput instance;
 
@@ -112,7 +114,7 @@ public class MicInput : MonoBehaviour
         }
         
 
-        float steps = -10 + 12 * PlayerHandler.instance.currentCursorPos + 12 * octave;
+        float steps = -10 + 12 * PlayerHandler.instance.currentCursorPos + 12 * ((float)octave + octaveBase);
         print("Steps: " + steps);
         if (steps < 0)
         {

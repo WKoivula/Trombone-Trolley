@@ -27,7 +27,7 @@ public class PlayerHandler : MonoBehaviour
 
     private void Update()
     {
-        cursorObject.transform.localPosition = new Vector3(0, currentCursorPos * 13 * 0.2f, 0);
+        cursorObject.transform.localPosition = new Vector3(0, currentCursorPos * 12 * 0.2f, 0);
         // Debug.Log("Mic Volume: " + (MicInput.instance != null ? MicInput.instance.CurrentVolume.ToString() : "No MicInput instance"));
         if (noteShouldBeHit && currentCursorPos <= laneValue + hitWindow / 2 && currentCursorPos >= laneValue - hitWindow / 2 && MicInput.instance != null && MicInput.instance.CurrentVolume > -70f)
         {
