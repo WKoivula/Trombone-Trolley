@@ -57,7 +57,6 @@ public class HandleConstraint : OneGrabTranslateTransformer, ITransformer
 
             SliderValue = normalized;
             PlayerHandler.instance.currentCursorPos = normalized;
-
         }
 
     }
