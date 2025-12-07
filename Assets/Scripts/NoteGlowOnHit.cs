@@ -8,14 +8,16 @@ public class NoteGlowOnHit : MonoBehaviour
     public string rimColorProperty = "_RimColor";
     public float maxRimPower = 100f;
     public float glowDuration = 0.2f;
-
+    public float noteColor;
     private Renderer targetRenderer;
-    private Material matInstance;
+    public Material matInstance;
     private bool isPlaying = false;
 
+    private SphereCollider NoteCollider;
     void Awake()
     {
         targetRenderer = GetComponent<Renderer>();
+        NoteCollider = GetComponent<SphereCollider>();
         if (targetRenderer == null)
             targetRenderer = GetComponentInChildren<Renderer>();
 
@@ -39,6 +41,7 @@ public class NoteGlowOnHit : MonoBehaviour
     public void PlayGlowAndDespawn(Vector3 stopPosition)
     {
         if (!isPlaying && matInstance != null)
+            Destroy(NoteCollider);
             StartCoroutine(GlowRoutine(stopPosition));
     }
     
@@ -47,7 +50,7 @@ public class NoteGlowOnHit : MonoBehaviour
         return isPlaying;
     }
 
-    private IEnumerator GlowRoutine(Vector3 stopPos)
+    public IEnumerator GlowRoutine(Vector3 stopPos)
     {
         isPlaying = true;
 

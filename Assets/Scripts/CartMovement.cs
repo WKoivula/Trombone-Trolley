@@ -18,8 +18,8 @@ public class CartMovement : MonoBehaviour
     public float currentSpeed;
     public float newSpeed;
     //max och min speed:
-    public float minSpeed =1f;
-    public float maxSpeed =8f;
+    public float minSpeed = 0.01f;
+    public float maxSpeed = 8f;
 
     private void Awake()
     {
@@ -33,9 +33,26 @@ public class CartMovement : MonoBehaviour
 
         ParentToCart(beatmapContainer.transform, true);
     }
+    //lyssnar till missnotehandler on trigger
+    private void OnEnable()
+    {
+        MissedNoteHandler.NoteMissed += OnNoteMissed;
+    }
+
+    private void OnDisable()
+    {
+        MissedNoteHandler.NoteMissed -= OnNoteMissed;
+    }
+
+    private void OnNoteMissed(Collider other)
+    {
+        Debug.Log($"CartMovement: OnNoteMissed received for {other.gameObject.name}");
+        ApplySpeedDecrease();
+    }
 
     private void Update()
     {
+        
         transform.position += Vector3.left * Time.deltaTime * currentSpeed;
         if (isMoving)
         {
@@ -58,17 +75,14 @@ public class CartMovement : MonoBehaviour
 
     public void ApplySpeedIncrease()
     {
-        newSpeed = Mathf.Clamp(currentSpeed * 1.03f, minSpeed, maxSpeed);
+        newSpeed = Mathf.Clamp(currentSpeed * 1.3f, minSpeed, maxSpeed);
         currentSpeed = newSpeed;
-        
-            Debug.Log("Currentspeed " + currentSpeed);
-        
         isMoving = false;
 
     }
     public void ApplySpeedDecrease()
     {
-        newSpeed = Mathf.Clamp(currentSpeed * 0.7f, minSpeed, maxSpeed);
+        newSpeed = Mathf.Clamp(currentSpeed * 0.95f, minSpeed, maxSpeed);
         currentSpeed = newSpeed;
         isMoving = false;
 
@@ -78,6 +92,10 @@ public class CartMovement : MonoBehaviour
     public void PushForward()
     {
         ApplySpeedIncrease();
+    }
+    public void PushBackward()
+    {
+        ApplySpeedDecrease();
     }
 
 
