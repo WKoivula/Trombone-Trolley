@@ -3,90 +3,114 @@ using UnityEngine;
 public class CartMovement : MonoBehaviour
 {
     public static CartMovement instance;
-    
+
     [Header("Movement Settings")]
     public float pushDistance = 2f;
     public float moveSpeed = 5f;
-    
+
     [Header("Beatmap Parenting")]
     public GameObject beatmapContainer;
-    
+
     private Vector3 targetPosition;
     private Vector3 currentVelocity;
     private bool isMoving = false;
-    
+    //public bara för att används i UI
+    public float currentSpeed;
+    public float newSpeed;
+    //max och min speed:
+    public float minSpeed =1f;
+    public float maxSpeed =8f;
+
     private void Awake()
     {
         instance = this;
         targetPosition = transform.position;
-        
+        newSpeed = currentSpeed;
         if (beatmapContainer == null)
         {
             beatmapContainer = new GameObject("BeatmapContainer");
         }
-        
+
         ParentToCart(beatmapContainer.transform, true);
     }
-    
+
     private void Update()
     {
+        transform.position += Vector3.left * Time.deltaTime * currentSpeed;
         if (isMoving)
         {
-            transform.position = Vector3.SmoothDamp(
-                transform.position, 
-                targetPosition, 
-                ref currentVelocity, 
-                1f / moveSpeed
-            );
-            
-            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
-            {
-                transform.position = targetPosition;
-                isMoving = false;
-            }
+            ApplySpeedIncrease();
+            /*  transform.position = Vector3.SmoothDamp(
+                 transform.position, 
+                 targetPosition, 
+                 ref currentVelocity, 
+                 1f / moveSpeed
+             );
+
+             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+             {
+                 transform.position = targetPosition;
+                 isMoving = false;
+             } */
         }
+
     }
-    
+
+    public void ApplySpeedIncrease()
+    {
+        newSpeed = Mathf.Clamp(currentSpeed * 1.03f, minSpeed, maxSpeed);
+        currentSpeed = newSpeed;
+        
+            Debug.Log("Currentspeed " + currentSpeed);
+        
+        isMoving = false;
+
+    }
+    public void ApplySpeedDecrease()
+    {
+        newSpeed = Mathf.Clamp(currentSpeed * 0.7f, minSpeed, maxSpeed);
+        currentSpeed = newSpeed;
+        isMoving = false;
+
+    }
+
+
     public void PushForward()
     {
-        PushForward(pushDistance);
+        ApplySpeedIncrease();
     }
-    
-    public void PushForward(float distance)
-    {
-        targetPosition += -transform.forward * distance;
-        isMoving = true;
-    }
-    
+
+
+
     public void SetPosition(Vector3 position)
     {
         targetPosition = position;
         transform.position = position;
         isMoving = false;
     }
-    
+
     public bool IsMoving()
     {
         return isMoving;
     }
-    
+
     public void ParentToCart(Transform obj, bool preserveWorldPosition = true)
     {
         if (obj == null) return;
-        
+
         Vector3 worldPos = obj.position;
         Quaternion worldRot = obj.rotation;
         Vector3 worldScale = obj.lossyScale;
-        
+
         obj.SetParent(transform, preserveWorldPosition);
     }
-    
+
     public void ParentToBeatmapContainer(Transform obj, bool preserveWorldPosition = true)
     {
         if (obj == null || beatmapContainer == null) return;
         obj.SetParent(beatmapContainer.transform, preserveWorldPosition);
     }
-    
+
     public Transform GetBeatmapContainer()
     {
         return beatmapContainer != null ? beatmapContainer.transform : transform;
