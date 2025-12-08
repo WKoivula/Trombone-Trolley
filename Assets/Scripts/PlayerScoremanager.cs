@@ -10,15 +10,18 @@ public class PlayerScoremanager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        totalDistance = Vector3.Distance(startPosition.position, endPosition.position);
+        totalDistance =0;
         Score = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(GameManager._instance.currentState ==GameManager.GameState.Playing ) {
+            
         totalDistance = Vector3.Distance(startPosition.position, endPosition.position);
         
-        Score += Mathf.Round( totalDistance* 100f) ;
+        Score = Mathf.Round(totalDistance*100f)/100f; //* 100f
+        }
     }
 }
