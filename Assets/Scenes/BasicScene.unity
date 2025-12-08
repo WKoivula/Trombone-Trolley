@@ -119,37 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &13926224
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 13926225}
-  m_Layer: 0
-  m_Name: Endpoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &13926225
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 13926224}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 587707158}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &17038843
 GameObject:
   m_ObjectHideFlags: 0
@@ -4839,7 +4808,6 @@ GameObject:
   - component: {fileID: 587707157}
   - component: {fileID: 587707156}
   - component: {fileID: 587707155}
-  - component: {fileID: 587707154}
   - component: {fileID: 587707159}
   - component: {fileID: 587707160}
   m_Layer: 0
@@ -4849,19 +4817,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &587707154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587707153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa2e00dbaad75a340948771c406436df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerSpeed: 0
 --- !u!65 &587707155
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4954,7 +4909,6 @@ Transform:
   m_Children:
   - {fileID: 703760887}
   - {fileID: 1685116806}
-  - {fileID: 13926225}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &587707159
@@ -4993,9 +4947,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 587707153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a197380583859045b6fbd758afb0086, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e4aadfe693a3b24db860f30ad0d6985, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DistanceHandler
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScoremanager
+  Score: 0
+  startPosition: {fileID: 533703298}
+  endPosition: {fileID: 587707158}
+  totalDistance: 0
 --- !u!1 &595899131
 GameObject:
   m_ObjectHideFlags: 0
@@ -9224,7 +9182,7 @@ MonoBehaviour:
   pushDistance: 2
   moveSpeed: 5
   beatmapContainer: {fileID: 0}
-  currentSpeed: 1
+  currentSpeed: 8
   newSpeed: 0
   minSpeed: 1
   maxSpeed: 8
@@ -9840,8 +9798,10 @@ MonoBehaviour:
   canvas: {fileID: 1235440289}
   currentSpeedText: {fileID: 621371031}
   newSpeedText: {fileID: 1307954303}
+  distanceText: {fileID: 0}
   cartClass: {fileID: 1108777500}
-  DebugActive: 1
+  PlayerScoreManager: {fileID: 587707160}
+  DebugActive: 0
 --- !u!1 &1244239293
 GameObject:
   m_ObjectHideFlags: 0
