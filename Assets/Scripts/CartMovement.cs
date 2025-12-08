@@ -75,7 +75,7 @@ public class CartMovement : MonoBehaviour
 
     public void ApplySpeedIncrease()
     {
-        newSpeed = Mathf.Clamp(currentSpeed * 1.3f, minSpeed, maxSpeed);
+        newSpeed = Mathf.Clamp(currentSpeed * 1.03f, minSpeed, maxSpeed);
         currentSpeed = newSpeed;
         isMoving = false;
 
