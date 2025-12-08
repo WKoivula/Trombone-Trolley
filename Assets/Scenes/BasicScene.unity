@@ -5176,7 +5176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScoremanager
   Score: 0
   startPosition: {fileID: 533703298}
-  endPosition: {fileID: 587707158}
+  endPosition: {fileID: 703760887}
   totalDistance: 0
 --- !u!1 &595899131
 GameObject:
