@@ -4145,6 +4145,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c220910461a2dbc4db5cc8150d1907d8, type: 3}
   m_PrefabInstance: {fileID: 526917785}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &533703297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 533703298}
+  m_Layer: 0
+  m_Name: Startpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &533703298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533703297}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 23.96, y: 0.95, z: 0}
+  m_LocalScale: {x: 1.35, y: 0.7165385, z: 0.92423075}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &555499417
 GameObject:
   m_ObjectHideFlags: 0
@@ -4777,8 +4808,8 @@ GameObject:
   - component: {fileID: 587707157}
   - component: {fileID: 587707156}
   - component: {fileID: 587707155}
-  - component: {fileID: 587707154}
   - component: {fileID: 587707159}
+  - component: {fileID: 587707160}
   m_Layer: 0
   m_Name: Cart
   m_TagString: Untagged
@@ -4786,19 +4817,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &587707154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587707153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa2e00dbaad75a340948771c406436df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerSpeed: 0
 --- !u!65 &587707155
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4920,6 +4938,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &587707160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587707153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4aadfe693a3b24db860f30ad0d6985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScoremanager
+  Score: 0
+  startPosition: {fileID: 533703298}
+  endPosition: {fileID: 587707158}
+  totalDistance: 0
 --- !u!1 &595899131
 GameObject:
   m_ObjectHideFlags: 0
@@ -9148,7 +9182,7 @@ MonoBehaviour:
   pushDistance: 2
   moveSpeed: 5
   beatmapContainer: {fileID: 0}
-  currentSpeed: 1
+  currentSpeed: 8
   newSpeed: 0
   minSpeed: 1
   maxSpeed: 8
@@ -9764,8 +9798,10 @@ MonoBehaviour:
   canvas: {fileID: 1235440289}
   currentSpeedText: {fileID: 621371031}
   newSpeedText: {fileID: 1307954303}
+  distanceText: {fileID: 0}
   cartClass: {fileID: 1108777500}
-  DebugActive: 1
+  PlayerScoreManager: {fileID: 587707160}
+  DebugActive: 0
 --- !u!1 &1244239293
 GameObject:
   m_ObjectHideFlags: 0
@@ -14420,7 +14456,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1870011069}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -16735,3 +16771,4 @@ SceneRoots:
   - {fileID: 2146677441}
   - {fileID: 557069674}
   - {fileID: 2094438244}
+  - {fileID: 533703298}
