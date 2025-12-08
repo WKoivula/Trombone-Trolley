@@ -45,7 +45,7 @@ public class SliderController : MonoBehaviour
         origin = transform.InverseTransformPoint(startPos);
         hitPosition = transform.InverseTransformPoint(startPos);
 
-        slider.line = this.line;
+        slider.line = line;
 
         alive = new bool[slider.nodes.Count];
 
@@ -140,7 +140,8 @@ public class SliderController : MonoBehaviour
                     LaneToPos(nextNode.lane),
                     tLine
                 );
-
+                
+                MicInput.instance.octave = slider.octave;
                 PlayerHandler.instance.SetCurrentNote(lanePos.y / (12 * heightPerLane));
                 PlayerHandler.instance.SetCurrentLine(slider.line);
             }
@@ -167,7 +168,7 @@ public class SliderController : MonoBehaviour
 
             Vector3 lineLocalPos = Vector3.LerpUnclamped(startPosLocal, hitPosWithOffsetLocal, t);
             cachedPositions[i] = lineLocalPos;
-
+            
             if (alive[i])
             {
                 anyAlive = true;

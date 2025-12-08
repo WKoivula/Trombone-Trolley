@@ -39,7 +39,7 @@ public class PlayerHandler : MonoBehaviour
 
     private void Update()
     {
-        cursorObject.transform.localPosition = new Vector3(0, currentCursorPos * 13 * 0.2f, 0);
+        cursorObject.transform.localPosition = new Vector3(0, currentCursorPos * 12 * 0.2f, 0);
         
         // Handle mouse click for debug mode (works with trackpad too)
         if (enableMouseDebug && (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)))
