@@ -29,10 +29,15 @@ public class GameManager : MonoBehaviour
     {
         currentState = GameState.Playing;
     }
+    
     public void EndGame()
     {
         currentState = GameState.GameOver;
-     
+    }
+    
+    public void ResetGame()
+    {
+        currentState = GameState.Start;
     }
  
 }
