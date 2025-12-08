@@ -7,13 +7,20 @@ public class PlayerHandler : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float currentCursorPos = 0.0f;
     
+    [Header("Debug Settings")]
+    public bool enableMouseDebug = true;
+    public float mouseDebugWindow = 2.0f; // Time window in seconds for mouse click debug (how long after clicking counts as a hit)
+    
     public GameObject cursorPrefab;
     private GameObject cursorObject;
 
     private float laneValue;
     private bool noteShouldBeHit = false;
+    private float lastMouseClickTime = -999f;
 
     private LineRenderer currentSliderLine;
+    private GameObject currentNoteObject;
+    private bool currentNoteWasHit = false;
 
     private void Awake()
     {
@@ -23,20 +30,42 @@ public class PlayerHandler : MonoBehaviour
     private void Start()
     {
         cursorObject = Instantiate(cursorPrefab, transform);
+        
+        if (CartMovement.instance != null)
+        {
+            CartMovement.instance.ParentToBeatmapContainer(transform, true);
+        }
     }
 
     private void Update()
     {
         cursorObject.transform.localPosition = new Vector3(0, currentCursorPos * 12 * 0.2f, 0);
-        // Debug.Log("Mic Volume: " + (MicInput.instance != null ? MicInput.instance.CurrentVolume.ToString() : "No MicInput instance"));
-        if (noteShouldBeHit && currentCursorPos <= laneValue + hitWindow / 2 && currentCursorPos >= laneValue - hitWindow / 2 && MicInput.instance != null && MicInput.instance.CurrentVolume > -70f)
+        
+        // Handle mouse click for debug mode (works with trackpad too)
+        if (enableMouseDebug && (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)))
         {
-            Debug.Log("Perfect hit!");
+            lastMouseClickTime = Time.time;
+        }
+        
+        bool micHit = MicInput.instance != null && MicInput.instance.CurrentVolume > -70f;
+        bool mouseDebugHit = enableMouseDebug && (Time.time - lastMouseClickTime) < mouseDebugWindow;
+        bool positionCorrect = currentCursorPos <= laneValue + hitWindow / 2 && currentCursorPos >= laneValue - hitWindow / 2;
+        
+        bool hitDetected = noteShouldBeHit && ((positionCorrect && micHit) || mouseDebugHit);
+        
+        if (hitDetected && !currentNoteWasHit)
+        {
             if (currentSliderLine != null)
             {
-                Debug.Log("Slider not null");
                 currentSliderLine.startColor = Color.blue;
                 currentSliderLine.endColor = Color.blue;
+            }
+            
+            currentNoteWasHit = true;
+            
+            if (CartMovement.instance != null)
+            {
+                CartMovement.instance.PushForward();
             }
         }
         else
@@ -49,22 +78,29 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
-    // Sets whether a note should be hit currently
     public void SetNoteShouldBeHit(bool shouldBeHit)
     {
         noteShouldBeHit = shouldBeHit;
     }
 
-    // Sets current note, should be normalized between 0 and 1
     public void SetCurrentNote(float noteValue)
     {
-        Debug.Log(noteValue);
         laneValue = noteValue;
     }
 
     public void SetCurrentLine(LineRenderer line)
     {
-        Debug.Log("Set line");
         currentSliderLine = line;
+    }
+    
+    public void SetCurrentNoteObject(GameObject noteObject)
+    {
+        currentNoteObject = noteObject;
+        currentNoteWasHit = false;
+    }
+    
+    public bool WasCurrentNoteHit()
+    {
+        return currentNoteWasHit;
     }
 }

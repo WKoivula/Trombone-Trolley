@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
-  instanceId: 11db0226-add4-4742-ba16-f7ab5616012b
+  instanceId: 99c682b0-de07-4d72-a08c-d5640c704959
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -1146,6 +1146,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3903482226444188758, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1959979328922929186}
+    - targetCorrespondingSourceObject: {fileID: 3903482226444188758, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1839596624506126497}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4148778239110795873, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       insertIndex: 1
@@ -1174,7 +1177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Meta.XR.BuildingBlocks::Meta.XR.BuildingBlocks.BuildingBlock
   blockId: 81f55626-5fad-45e9-a1df-184f330da7ba
-  instanceId: d902717d-e050-41f3-9cc6-3d8abe3a6f22
+  instanceId: 08e8ddb1-29d0-4100-b3ea-ffbfba4501c7
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 2063f481-1b63-4eda-9ee8-a00df98536bc
@@ -1307,6 +1310,10 @@ PrefabInstance:
     - target: {fileID: 8334618300071882631, guid: 39577e0135f74054082a8311de57cc2c, type: 3}
       propertyPath: m_Name
       value: Trombone_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334618300071882631, guid: 39577e0135f74054082a8311de57cc2c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8710334980459427133, guid: 39577e0135f74054082a8311de57cc2c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1507,3 +1514,105 @@ MonoBehaviour:
     MaxZ:
       Constrain: 1
       Value: 0
+--- !u!1001 &7305913367879801506
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 836219150146748674}
+    m_Modifications:
+    - target: {fileID: 2826277540558460877, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: _rigidbody
+      value: 
+      objectReference: {fileID: 3052117353711993167}
+    - target: {fileID: 2826277540558460877, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: _pointableElement
+      value: 
+      objectReference: {fileID: 4783940979859870329}
+    - target: {fileID: 8624268703695012025, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_Name
+      value: tromboneInteractable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.688
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+--- !u!4 &1839596624506126497 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8999421437428292099, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+  m_PrefabInstance: {fileID: 7305913367879801506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &3052117353711993167 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 5708486182154787821, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+  m_PrefabInstance: {fileID: 7305913367879801506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4783940979859870329 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2810291824705112283, guid: 2bf106e1f8fa9734aabe9d3d56443ac0, type: 3}
+  m_PrefabInstance: {fileID: 7305913367879801506}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Grabbable
