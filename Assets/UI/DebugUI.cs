@@ -9,6 +9,7 @@ public class DebugUI : MonoBehaviour
     [SerializeField] public TMP_Text distanceText;
     [SerializeField] public CartMovement cartClass;
     [SerializeField] public PlayerScoremanager PlayerScoreManager;
+    [SerializeField] public GameManager GameManager;
 
     public bool DebugActive;
     LineRenderer lineRenderer;
@@ -26,7 +27,7 @@ public class DebugUI : MonoBehaviour
         if (DebugActive)
         {
             currentSpeedText.text = $"{cartClass.currentSpeed}";
-            newSpeedText.text = $"{cartClass.newSpeed}";
+            newSpeedText.text = $"{GameManager.currentState}";
         }
         else
         {
