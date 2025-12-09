@@ -62,7 +62,7 @@ public class SongHandler : MonoBehaviour
         linePositions[0] = Vector3.zero;
         linePositions[1] = new Vector3(0, 12 * heightPerLane, 0); ;
         mapLineRenderer.SetPositions(linePositions);
-        
+
         if (CartMovement.instance != null)
         {
             CartMovement.instance.ParentToBeatmapContainer(transform, true);
@@ -79,7 +79,7 @@ public class SongHandler : MonoBehaviour
             songAudioSource.PlayScheduled(songStartTime);
             StartCoroutine(PlayBeatmap(beatmap, songStartTime));
         }
-        
+
         // Reset isPlaying when game state is not Playing (for restart functionality)
         if (isPlaying && GameManager._instance != null && GameManager._instance.currentState != GameManager.GameState.Playing)
         {
@@ -113,13 +113,14 @@ public class SongHandler : MonoBehaviour
     {
         GameObject sliderObj = Instantiate(sliderPrefab);
         SliderController controller = sliderObj.GetComponent<SliderController>();
-        
+
         if (CartMovement.instance != null)
         {
-            CartMovement.instance.ParentToBeatmapContainer(sliderObj.transform, true);
+            CartMovement.instance.ParentToBeatmapContainer(sliderObj.transform, false);
+            sliderObj.transform.localPosition = Vector3.zero;
         }
 
         controller.Initialize(slider, transform.position, delayToStartSlider, songStartTime, AudioSettings.dspTime, beatmap.arrivalSpeed, heightPerLane);
     }
-    
+
 }
