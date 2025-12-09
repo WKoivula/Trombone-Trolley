@@ -13943,12 +13943,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 836996557427447611, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
+      propertyPath: slider
+      value: 0.66902405
+      objectReference: {fileID: 0}
+    - target: {fileID: 836996557427447611, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: volume
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 836996557427447611, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
+      propertyPath: isBlowing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 836996557427447611, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
+      propertyPath: octaveBase
+      value: 0.16666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 836996557427447611, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: sensitivity
-      value: -40
+      value: -1000
       objectReference: {fileID: 0}
     - target: {fileID: 4584524351719103429, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14000,15 +14012,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6382446780731632775, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: Priority
-      value: 137
+      value: 102
       objectReference: {fileID: 0}
     - target: {fileID: 6382446780731632775, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: m_Volume
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7817559425639991195, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
+      propertyPath: _channel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817559425639991195, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: _deviceID
-      value: '{0.0.1.00000000}.{7a1888cf-37e3-44ed-af1e-cfdd766d71ea}'
+      value: '{0.0.1.00000000}.{ac1b8070-adbf-4dfb-bec4-1b857beb6085}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817559425639991195, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
+      propertyPath: _dynamicRange
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7817559425639991195, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: _useDefaultDevice

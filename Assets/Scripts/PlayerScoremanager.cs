@@ -21,7 +21,7 @@ public class PlayerScoremanager : MonoBehaviour
             
         totalDistance = Vector3.Distance(startPosition.position, endPosition.position);
         
-        Score = Mathf.Round(totalDistance*100f)/100f; //* 100f
+        Score = Mathf.Round(totalDistance*100f)/100f; 
         }
     }
 }
