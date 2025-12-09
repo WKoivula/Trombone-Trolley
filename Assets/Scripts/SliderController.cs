@@ -66,10 +66,11 @@ public class SliderController : MonoBehaviour
             }
             double currSongTime = AudioSettings.dspTime - songStartTime;
             double timeToNode = slider.nodes[i].time - currSongTime;
-            n.transform.Translate(LaneToPos(slider.nodes[i].lane) + new Vector3(delay * arrivalSpeed + (float)timeToNode * arrivalSpeed, 0, 0));
-            n.transform.position = new Vector3(-n.transform.position.x,n.transform.position.y,n.transform.position.z);
-            startPositions.Add(transform.InverseTransformPoint(n.transform.position));
-            prevPositions.Add(transform.InverseTransformPoint(n.transform.position));
+            float distance = delay * arrivalSpeed + (float)timeToNode * arrivalSpeed;
+            Vector3 offset = LaneToPos(slider.nodes[i].lane) + Vector3.left * distance;
+            n.transform.Translate(offset, Space.Self);
+            startPositions.Add(n.transform.localPosition);
+            prevPositions.Add(n.transform.localPosition);
             targetTimes.Add(slider.nodes[i].time);
             alive[i] = true;
         }
@@ -108,7 +109,7 @@ public class SliderController : MonoBehaviour
 
     private Vector3 LaneToPos(float lane)
     {
-        return origin + new Vector3(0, lane * heightPerLane, 0);
+        return new Vector3(0, lane * heightPerLane, 0);
     }
 
     private Vector3[] cachedPositions;
