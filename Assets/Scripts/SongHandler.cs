@@ -109,7 +109,8 @@ public class SongHandler : MonoBehaviour
         
         if (CartMovement.instance != null)
         {
-            CartMovement.instance.ParentToBeatmapContainer(sliderObj.transform, true);
+            CartMovement.instance.ParentToBeatmapContainer(sliderObj.transform, false);
+            sliderObj.transform.localPosition = Vector3.zero;
         }
 
         controller.Initialize(slider, transform.position, delayToStartSlider, songStartTime, AudioSettings.dspTime, beatmap.arrivalSpeed, heightPerLane);
