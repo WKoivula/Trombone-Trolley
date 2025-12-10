@@ -270,8 +270,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.8509804, g: 0.67058825, b: 0.40392157, a: 1}
+  m_Intensity: 1.44
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -9400,6 +9400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1090268299}
   - component: {fileID: 1090268298}
+  - component: {fileID: 1090268300}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -9487,6 +9488,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1090268300
+MonoBehaviour:
+  m_ObjectHideFlags: 64
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090268297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &1094304167
 GameObject:
   m_ObjectHideFlags: 0
@@ -9595,11 +9625,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CartMovement
   pushDistance: 2
   moveSpeed: 5
+  Amount: 0
   beatmapContainer: {fileID: 0}
   currentSpeed: 1
-  newSpeed: 1
+  newSpeed: 2
   minSpeed: 1
-  maxSpeed: 8
+  maxSpeed: 12
 --- !u!1001 &1131383382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12760,7 +12791,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541859360}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1541859365
 Camera:
   m_ObjectHideFlags: 0
@@ -12768,7 +12799,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541859360}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -14097,7 +14128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 836996557427447611, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: sensitivity
-      value: -400
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 4584524351719103429, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14161,7 +14192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7817559425639991195, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: _deviceID
-      value: '{0.0.1.00000000}.{d420cee6-9a4c-4a12-b1ef-157d41f3c9e4}'
+      value: '{0.0.1.00000000}.{ba27912d-63b1-4cfd-a8d2-e99551d8478e}'
       objectReference: {fileID: 0}
     - target: {fileID: 7817559425639991195, guid: c6849f7cca26d1b44804e90ba2ed43f1, type: 3}
       propertyPath: _dynamicRange
@@ -15905,6 +15936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1907522043}
   - component: {fileID: 1907522042}
+  - component: {fileID: 1907522044}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -15992,6 +16024,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1907522044
+MonoBehaviour:
+  m_ObjectHideFlags: 64
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907522041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &1913189095
 GameObject:
   m_ObjectHideFlags: 0
@@ -17805,7 +17866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8854193746574693526, guid: b54ab3e3da8be304c95aef698a0f4da6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.676
       objectReference: {fileID: 0}
     - target: {fileID: 8854193746574693526, guid: b54ab3e3da8be304c95aef698a0f4da6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18803,6 +18864,7 @@ GameObject:
   - component: {fileID: 7868950939938649213}
   - component: {fileID: 6601034384508892275}
   - component: {fileID: 438090801879175760}
+  - component: {fileID: 7868950939938649214}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -19267,6 +19329,66 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5771214820587031663}
   m_Enabled: 1
+--- !u!114 &7868950939938649214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5771214820587031663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Postprocessing.Runtime::UnityEngine.Rendering.PostProcessing.PostProcessLayer
+  volumeTrigger: {fileID: 5191720337236927825}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 16
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &8014267163904327709
 GameObject:
   m_ObjectHideFlags: 0
@@ -19525,3 +19647,6 @@ SceneRoots:
   - {fileID: 287683681}
   - {fileID: 535312591}
   - {fileID: 128938291}
+  - {fileID: 44113344}
+  - {fileID: 1090268299}
+  - {fileID: 1907522043}

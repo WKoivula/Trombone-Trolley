@@ -7,19 +7,19 @@ public class CartMovement : MonoBehaviour
     [Header("Movement Settings")]
     public float pushDistance = 2f;
     public float moveSpeed = 5f;
+    public int Amount = 0;
 
     [Header("Beatmap Parenting")]
     public GameObject beatmapContainer;
 
     private Vector3 targetPosition;
     private Vector3 currentVelocity;
-    private bool isMoving = false;
     //public bara för att används i UI
     public float currentSpeed;
     public float newSpeed;
     //max och min speed:
     public float minSpeed = 0.01f;
-    public float maxSpeed = 8f;
+    public float maxSpeed = 12f;
 
     private void Awake()
     {
@@ -56,37 +56,20 @@ public class CartMovement : MonoBehaviour
         if (GameManager._instance != null && GameManager._instance.currentState == GameManager.GameState.Playing)
         {
             transform.position += Vector3.left * Time.deltaTime * currentSpeed;
-            if (isMoving)
-            {
-                ApplySpeedIncrease();
-                /*  transform.position = Vector3.SmoothDamp(
-                     transform.position, 
-                     targetPosition, 
-                     ref currentVelocity, 
-                     1f / moveSpeed
-                 );
-
-                 if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
-                 {
-                     transform.position = targetPosition;
-                     isMoving = false;
-                 } */
-            }
+         
         }
     }
 
     public void ApplySpeedIncrease()
     {
-        newSpeed = Mathf.Clamp(currentSpeed * 1.03f, minSpeed, maxSpeed);
+        newSpeed = Mathf.Clamp(currentSpeed * 1.6f, minSpeed, maxSpeed);
         currentSpeed = newSpeed;
-        isMoving = false;
 
     }
     public void ApplySpeedDecrease()
     {
-        newSpeed = Mathf.Clamp(currentSpeed * 0.95f, minSpeed, maxSpeed);
+        newSpeed = Mathf.Clamp(currentSpeed * 0.9f, minSpeed, maxSpeed);
         currentSpeed = newSpeed;
-        isMoving = false;
 
     }
 
@@ -106,13 +89,8 @@ public class CartMovement : MonoBehaviour
     {
         targetPosition = position;
         transform.position = position;
-        isMoving = false;
     }
 
-    public bool IsMoving()
-    {
-        return isMoving;
-    }
 
     public void ParentToCart(Transform obj, bool preserveWorldPosition = true)
     {
