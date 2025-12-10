@@ -33,7 +33,11 @@ public class debugbutton : MonoBehaviour
 	{
 		// Update button visibility based on game state
 		UpdateButtonVisibility();
-	}
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			OnClick();
+        }
+    }
 
 	private void UpdateButtonVisibility()
 	{

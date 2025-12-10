@@ -20,6 +20,8 @@ public class CartMovement : MonoBehaviour
     //max och min speed:
     public float minSpeed = 0.01f;
     public float maxSpeed = 12f;
+    float endgameSpeed = 0f;
+    float slowdown = 0f;
 
     private void Awake()
     {
@@ -55,8 +57,17 @@ public class CartMovement : MonoBehaviour
         // Only move the cart when the game is in Playing state
         if (GameManager._instance != null && GameManager._instance.currentState == GameManager.GameState.Playing)
         {
-            transform.position += Vector3.left * Time.deltaTime * currentSpeed;
-         
+            if (GameManager._instance.targetTime <= 0f)
+            {
+                transform.position += Vector3.left * Time.deltaTime * endgameSpeed;
+                endgameSpeed = Mathf.Clamp(endgameSpeed - (Time.deltaTime * slowdown), 0f, maxSpeed);
+            }
+            else
+            {
+                endgameSpeed = currentSpeed;
+                slowdown = currentSpeed / 1.5f;
+                transform.position += Vector3.left * Time.deltaTime * currentSpeed;
+            }         
         }
     }
 

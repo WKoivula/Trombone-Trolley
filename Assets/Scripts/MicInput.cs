@@ -115,7 +115,6 @@ public class MicInput : MonoBehaviour
         
 
         float steps = -10 + 12 * PlayerHandler.instance.currentCursorPos + 12 * ((float)octave + octaveBase);
-        print("Steps: " + steps);
         if (steps < 0)
         {
             audioSource.pitch = Mathf.Pow(ratio, -steps);
