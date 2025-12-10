@@ -52,25 +52,27 @@ public class CartMovement : MonoBehaviour
 
     private void Update()
     {
-        
-        transform.position += Vector3.left * Time.deltaTime * currentSpeed;
-        if (isMoving)
+        // Only move the cart when the game is in Playing state
+        if (GameManager._instance != null && GameManager._instance.currentState == GameManager.GameState.Playing)
         {
-            ApplySpeedIncrease();
-            /*  transform.position = Vector3.SmoothDamp(
-                 transform.position, 
-                 targetPosition, 
-                 ref currentVelocity, 
-                 1f / moveSpeed
-             );
+            transform.position += Vector3.left * Time.deltaTime * currentSpeed;
+            if (isMoving)
+            {
+                ApplySpeedIncrease();
+                /*  transform.position = Vector3.SmoothDamp(
+                     transform.position, 
+                     targetPosition, 
+                     ref currentVelocity, 
+                     1f / moveSpeed
+                 );
 
-             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
-             {
-                 transform.position = targetPosition;
-                 isMoving = false;
-             } */
+                 if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+                 {
+                     transform.position = targetPosition;
+                     isMoving = false;
+                 } */
+            }
         }
-
     }
 
     public void ApplySpeedIncrease()

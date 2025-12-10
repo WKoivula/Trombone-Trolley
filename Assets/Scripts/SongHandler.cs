@@ -48,15 +48,10 @@ public class SongHandler : MonoBehaviour
     private bool isPlaying = false;
     private double songStartTime = 0.0f;
 
-    private PlayerInput playerInput;
-    private InputAction spaceAction;
-
     private void Awake()
     {
         beatmap = JsonUtility.FromJson<Beatmap>(songFile.text);
         beatmap.arrivalSpeed = noteArrivalSpeed;
-        playerInput = GetComponent<PlayerInput>();
-        spaceAction = playerInput.actions["Jump"];
         mapLineRenderer = GetComponentInChildren<LineRenderer>();
         songAudioSource = GetComponent<AudioSource>();
     }
@@ -67,7 +62,7 @@ public class SongHandler : MonoBehaviour
         linePositions[0] = Vector3.zero;
         linePositions[1] = new Vector3(0, 12 * heightPerLane, 0); ;
         mapLineRenderer.SetPositions(linePositions);
-        
+
         if (CartMovement.instance != null)
         {
             CartMovement.instance.ParentToBeatmapContainer(transform, true);
@@ -76,14 +71,26 @@ public class SongHandler : MonoBehaviour
 
     void Update()
     {
-        if (!isPlaying)
+        // Start spawning notes when game state changes to Playing
+        if (!isPlaying && GameManager._instance != null && GameManager._instance.currentState == GameManager.GameState.Playing)
         {
-            if (spaceAction.WasPressedThisFrame())
+            isPlaying = true;
+            songStartTime = AudioSettings.dspTime;
+            songAudioSource.PlayScheduled(songStartTime);
+            StartCoroutine(PlayBeatmap(beatmap, songStartTime));
+        }
+
+        // Reset isPlaying when game state is not Playing (for restart functionality)
+        if (isPlaying && GameManager._instance != null && GameManager._instance.currentState != GameManager.GameState.Playing)
+        {
+            isPlaying = false;
+            // Stop the audio if needed
+            if (songAudioSource.isPlaying)
             {
-                isPlaying = true;
-                songAudioSource.PlayScheduled(songStartTime);
-                StartCoroutine(PlayBeatmap(beatmap, songStartTime));
+                songAudioSource.Stop();
             }
+            // Stop all coroutines to prevent spawning
+            StopAllCoroutines();
         }
     }
 
@@ -106,13 +113,14 @@ public class SongHandler : MonoBehaviour
     {
         GameObject sliderObj = Instantiate(sliderPrefab);
         SliderController controller = sliderObj.GetComponent<SliderController>();
-        
+
         if (CartMovement.instance != null)
         {
-            CartMovement.instance.ParentToBeatmapContainer(sliderObj.transform, true);
+            CartMovement.instance.ParentToBeatmapContainer(sliderObj.transform, false);
+            sliderObj.transform.localPosition = Vector3.zero;
         }
 
         controller.Initialize(slider, transform.position, delayToStartSlider, songStartTime, AudioSettings.dspTime, beatmap.arrivalSpeed, heightPerLane);
     }
-    
+
 }
