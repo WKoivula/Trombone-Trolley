@@ -4,10 +4,7 @@ public class CartMovement : MonoBehaviour
 {
     public static CartMovement instance;
 
-    [Header("Movement Settings")]
-    public float pushDistance = 2f;
-    public float moveSpeed = 5f;
-    public int Amount = 0;
+
 
     [Header("Beatmap Parenting")]
     public GameObject beatmapContainer;
@@ -18,8 +15,11 @@ public class CartMovement : MonoBehaviour
     public float currentSpeed;
     public float newSpeed;
     //max och min speed:
-    public float minSpeed = 0.01f;
+    [Header("Speed Settings")]
+    public float minSpeed = 1f;
     public float maxSpeed = 12f;
+    public float minSpeedFactor = 0.9f;
+    public float maxSpeedFactor = 1.3f;
     float endgameSpeed = 0f;
     float slowdown = 0f;
 
@@ -67,19 +67,19 @@ public class CartMovement : MonoBehaviour
                 endgameSpeed = currentSpeed;
                 slowdown = currentSpeed / 1.5f;
                 transform.position += Vector3.left * Time.deltaTime * currentSpeed;
-            }         
+            }
         }
     }
 
     public void ApplySpeedIncrease()
     {
-        newSpeed = Mathf.Clamp(currentSpeed * 1.6f, minSpeed, maxSpeed);
+        newSpeed = Mathf.Clamp(currentSpeed * maxSpeedFactor, minSpeed, maxSpeed);
         currentSpeed = newSpeed;
 
     }
     public void ApplySpeedDecrease()
     {
-        newSpeed = Mathf.Clamp(currentSpeed * 0.9f, minSpeed, maxSpeed);
+        newSpeed = Mathf.Clamp(currentSpeed * minSpeedFactor, minSpeed, maxSpeed);
         currentSpeed = newSpeed;
 
     }

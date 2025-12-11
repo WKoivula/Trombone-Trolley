@@ -4,12 +4,13 @@ using UnityEngine;
 public class DebugUI : MonoBehaviour
 {
     [SerializeField] public Canvas canvas;
-    [SerializeField] public TMP_Text currentSpeedText;
+    [SerializeField] public TMP_Text PlayerScoreText;
     [SerializeField] public TMP_Text newSpeedText;
     [SerializeField] public TMP_Text distanceText;
     [SerializeField] public CartMovement cartClass;
     [SerializeField] public PlayerScoremanager PlayerScoreManager;
     [SerializeField] public GameManager GameManager;
+    [SerializeField] public GameObject Cart;
 
     public bool DebugActive;
     LineRenderer lineRenderer;
@@ -18,7 +19,7 @@ public class DebugUI : MonoBehaviour
     {
         if (DebugActive)
         {
-            currentSpeedText.text = $"{cartClass.currentSpeed}";
+            PlayerScoreText.text = $"{cartClass.currentSpeed}";
             newSpeedText.text = $"{cartClass.newSpeed}";
         }
     }
@@ -26,14 +27,11 @@ public class DebugUI : MonoBehaviour
     {
         if (DebugActive)
         {
-            currentSpeedText.text = $"{cartClass.currentSpeed}";
-            newSpeedText.text = $"{GameManager.currentState}";
+            PlayerScoreText.text = $"{cartClass.currentSpeed}";
         }
         else
         {
-            currentSpeedText.text = $"{PlayerScoreManager.Score}";
-            newSpeedText.text = $"";
-
+            PlayerScoreText.text = $"{PlayerScoreManager.Score}";
         }
     }
 
