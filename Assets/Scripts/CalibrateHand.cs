@@ -34,12 +34,16 @@ public class CalibrateHand : MonoBehaviour
         HeadToHand = RightHandTransform.position - Head.position;
         HeadToHandDir = HeadToHand.normalized;
         Debug.DrawRay(Head.position, HeadToHand, Color.green);
-        if (Input.GetKey("c")){
+        if (Input.GetKey("c"))
+        {
+            CalibrationPoint.position = RightHandTransform.position;
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
             CalibrationPoint.position = RightHandTransform.position;
         }
-       /*  if (TromboneTransform != null && HeadToHandDir.sqrMagnitude > 0.0001f)
-        {
-            TromboneTransform.LookAt(Head.position + HeadToHandDir);
-        } */
+
     }
 }
