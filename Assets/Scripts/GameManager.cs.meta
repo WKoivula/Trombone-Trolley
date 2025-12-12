@@ -1,2 +1,12 @@
 fileFormatVersion: 2
 guid: fd1d8daaf53d6714bab068dee7fcf326
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - scoreboardOverlay: {fileID: 919132149155446097, guid: 21e7938b647fbad4e9cc8cf8f00cf92c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
