@@ -5,24 +5,14 @@ public class DebugUI : MonoBehaviour
 {
     [Header("Canvas")]
     [SerializeField] public Canvas canvas;
-
-    [Header("Integer Digits")]
-    [SerializeField] public TMP_Text hundredsText;
-    [SerializeField] public TMP_Text tensText;
-    [SerializeField] public TMP_Text onesText;
-
-    [Header("Decimals")]
-    [SerializeField] public TMP_Text firstDecimal;
-    [SerializeField] public TMP_Text secondDecimal;
-
-    [Header("Debug Info")]
-    [SerializeField] public TMP_Text currentSpeedText;
+    [SerializeField] public TMP_Text PlayerScoreText;
     [SerializeField] public TMP_Text newSpeedText;
 
     [Header("References")]
     [SerializeField] public CartMovement cartClass;
     [SerializeField] public PlayerScoremanager PlayerScoreManager;
     [SerializeField] public GameManager GameManager;
+    [SerializeField] public GameObject Cart;
 
     public bool DebugActive;
 
@@ -30,8 +20,8 @@ public class DebugUI : MonoBehaviour
     {
         if (DebugActive)
         {
-            currentSpeedText.text = cartClass.currentSpeed.ToString();
-            newSpeedText.text = cartClass.newSpeed.ToString();
+            PlayerScoreText.text = $"{cartClass.currentSpeed}";
+            newSpeedText.text = $"{cartClass.newSpeed}";
         }
     }
 
@@ -39,12 +29,13 @@ public class DebugUI : MonoBehaviour
     {
         if (DebugActive)
         {
-            currentSpeedText.text = cartClass.currentSpeed.ToString();
-            newSpeedText.text = GameManager.currentState.ToString();
-            return;
+            PlayerScoreText.text = $"{cartClass.currentSpeed}";
         }
-
-        float score = PlayerScoreManager.Score;
+        else
+        {
+            PlayerScoreText.text = $"{PlayerScoreManager.Score}";
+        }
+    }
 
         // Split integer part
         int intPart = Mathf.FloorToInt(score);

@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return _instance; } }
     public enum GameState { Start, GameOver, Playing }
     public GameState currentState;
-    public float targetTime = 5f;
+    public float targetTime = 45.5f;
     public string playerName = "Player";
     public GameObject scoreboardOverlay;
     public GameObject woodSign;
