@@ -128,8 +128,7 @@ public class MicInput : MonoBehaviour
             audioSource.pitch = 1f;
         }
         
-        float level = audioLevelTracker.inputLevel;
-        if (level > sensitivity && CurrentVolume > -70f)
+        if (CurrentVolume > sensitivity)
         {
             if (audioSource != null)
             {

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public string playerName = "Player";
     public GameObject scoreboardOverlay;
     public GameObject woodSign;
+    public bool scoreboardVisible = false;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentState = GameState.Start;
-
+        woodSign.SetActive(false);
     }
 
     void Update()
@@ -35,6 +36,14 @@ public class GameManager : MonoBehaviour
         if (targetTime > 0 && currentState == GameState.Playing)
         {
             targetTime -= Time.deltaTime;
+        } else if (targetTime <= 0 && currentState == GameState.Playing && !scoreboardVisible)
+        {
+            scoreboardVisible = true;
+            woodSign.SetActive(true);
+        }
+        else
+        {
+            
         }
     }
 
