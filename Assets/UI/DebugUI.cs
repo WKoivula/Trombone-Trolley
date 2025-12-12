@@ -5,37 +5,35 @@ public class DebugUI : MonoBehaviour
 {
     [Header("Canvas")]
     [SerializeField] public Canvas canvas;
-    [SerializeField] public TMP_Text PlayerScoreText;
+
+    [Header("Integer Digits")]
+    [SerializeField] public TMP_Text hundredsText;
+    [SerializeField] public TMP_Text tensText;
+    [SerializeField] public TMP_Text onesText;
+
+    [Header("Decimals")]
+    [SerializeField] public TMP_Text firstDecimal;
+    [SerializeField] public TMP_Text secondDecimal;
+
+    [Header("Debug Info")]
+    [SerializeField] public TMP_Text currentSpeedText;
     [SerializeField] public TMP_Text newSpeedText;
 
     [Header("References")]
-    [SerializeField] public CartMovement cartClass;
     [SerializeField] public PlayerScoremanager PlayerScoreManager;
-    [SerializeField] public GameManager GameManager;
-    [SerializeField] public GameObject Cart;
 
     public bool DebugActive;
 
     void Start()
     {
-        if (DebugActive)
-        {
-            PlayerScoreText.text = $"{cartClass.currentSpeed}";
-            newSpeedText.text = $"{cartClass.newSpeed}";
-        }
+        
     }
 
     void Update()
     {
-        if (DebugActive)
-        {
-            PlayerScoreText.text = $"{cartClass.currentSpeed}";
-        }
-        else
-        {
-            PlayerScoreText.text = $"{PlayerScoreManager.Score}";
-        }
-    }
+      
+
+        float score = PlayerScoreManager.Score;
 
         // Split integer part
         int intPart = Mathf.FloorToInt(score);
