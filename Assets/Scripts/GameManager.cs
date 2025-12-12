@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public GameState currentState;
     public float targetTime = 5f;
     public string playerName = "Player";
+    public GameObject scoreboardOverlay;
+    public GameObject woodSign;
 
     private void Awake()
     {
@@ -21,11 +23,11 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-    
+
     void Start()
     {
-        currentState = GameState.Start;        
-        
+        currentState = GameState.Start;
+
     }
 
     void Update()
@@ -39,15 +41,20 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         currentState = GameState.Playing;
+        
     }
-    
+
     public void EndGame()
     {
         currentState = GameState.GameOver;
+        scoreboardOverlay.SetActive(true);
+        woodSign.SetActive(false);
     }
-    
+
     public void ResetGame()
     {
         currentState = GameState.Start;
+        woodSign.SetActive(true);
+        scoreboardOverlay.SetActive(false);
     }
 }

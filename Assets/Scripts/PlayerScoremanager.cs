@@ -7,10 +7,10 @@ public class PlayerScoremanager : MonoBehaviour
     [SerializeField] private Transform startPosition;
     [SerializeField] private Transform endPosition;
     public float totalDistance;
-    string[] highscoreNames = new string[5];
-    string[] highscoreNamesKeys = { "HighscoreName1", "HighscoreName2", "HighscoreName3", "HighscoreName4", "HighscoreName5" };
-    string[] highscoresKeys = { "Highscore1", "Highscore2", "Highscore3", "Highscore4", "Highscore5" };
-    float[] highscores = new float[5];
+    public string[] highscoreNames = new string[5];
+    public string[] highscoreNamesKeys = { "HighscoreName1", "HighscoreName2", "HighscoreName3", "HighscoreName4", "HighscoreName5" };
+    public string[] highscoresKeys = { "Highscore1", "Highscore2", "Highscore3", "Highscore4", "Highscore5" };
+    public float[] highscores = new float[5];
     bool scoreUpdated = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
