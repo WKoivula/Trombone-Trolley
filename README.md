@@ -58,7 +58,7 @@ Player cannot move by themselves. Instead the cart moves when spacebar is presse
 
 ## ⚠️ Important Notes
 
-* **Project not buildable** The project cannot be built on the headset due to the project making use of LASP ([Link to LASP]([https://www.meta.com/quest/setup/](https://github.com/keijiro/Lasp))). Therefore you must run the project via meta quest LINK and stream the project, I.e PCVR.
+* **Project not buildable** The project cannot be built on the headset due to the project making use of [LASP](https://github.com/keijiro/Lasp). Therefore you must run the project via meta quest LINK and stream the project, I.e PCVR.
 * **Controllers Not tested/implemented:** Project makes of hand tracking only. To calibrate the trombones position the "C" key is used while Spacebar is used to start the game. When the game ends, you simply exit the game and rerun it in the editor. The use of controllers is not supported. 
 * **Basic scene** The game exists inside the "BasicScene" scene with the remaining scenes being for testing or outdated. 
 
