@@ -53,7 +53,6 @@ Before opening the project, ensure you have the following installed and configur
 ## 🎮 Controls
 
 Player cannot move by themselves. Instead the cart moves when spacebar is pressed. Only relevant interaction is grabbing the trombone with hands.  
-| Grab | Hand grab according to handtracking pose logic |
 
 ---
 
