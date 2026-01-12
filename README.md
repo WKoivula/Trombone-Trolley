@@ -41,7 +41,6 @@ Before opening the project, ensure you have the following installed and configur
 
 ### 3. How to Run (Quest Link)
 
-To test the project in "Play Mode" using your headset:
 
 1.  **Connect your Quest 3** to your PC via the Link cable.
 2.  Inside the headset, select **Enable Quest Link** from the quick settings menu.
